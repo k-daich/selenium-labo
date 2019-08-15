@@ -1,0 +1,16 @@
+test\jp\co\daich\robot\F5keyTest.class
+test\jp\co\daich\robot\CntlFkeyTest.class
+jp\co\daich\constants\MouseEventMap.class
+test\jp\co\daich\robot\WheelkeyTest.class
+test\jp\co\daich\robot\PushkeyTest.class
+jp\co\daich\robot\LonelyRobot.class
+test\jp\co\daich\robot\AltLeftkeyTest.class
+jp\co\daich\constants\KeyEventName.class
+jp\co\daich\driver\MyDriver.class
+jp\co\daich\driver\actions\MyActions.class
+test\jp\co\daich\robot\CntlF5keyTest.class
+test\jp\co\daich\robot\MoveMouseCursorTest.class
+jp\co\daich\constants\KeyEventMap.class
+jp\co\daich\constants\KeyEventMap$1.class
+jp\co\daich\robot\Action.class
+jp\co\daich\constants\MouseEventMap$1.class
