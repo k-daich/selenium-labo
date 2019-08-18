@@ -7,18 +7,18 @@ package jp.co.daich.driver.actions;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import jp.co.daich.driver.MyDriver;
+import jp.co.daich.driver.LonlyOnlyDriver;
 
 /**
  *
  * @author USER
  */
-public class MyActions extends MyDriver {
+public class MyActions extends LonlyOnlyDriver {
 
     /**
      * Constructor
      */
-    public MyActions () {
+    public MyActions() {
         super();
     }
 
@@ -88,5 +88,14 @@ public class MyActions extends MyDriver {
         for (int i = keysies.length - 1; i >= 0; i--) {
             keyUp(keysies[i]);
         }
+    }
+
+    /**
+     * 指定した対象をクリックする
+     *
+     * @param wEle クリック対象
+     */
+    public static void click(WebElement wEle) {
+        acts.click(wEle);
     }
 }

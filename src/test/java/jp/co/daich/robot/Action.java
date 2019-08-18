@@ -5,6 +5,8 @@
  */
 package jp.co.daich.robot;
 
+import org.openqa.selenium.WebElement;
+
 /**
  *
  * @author USER
