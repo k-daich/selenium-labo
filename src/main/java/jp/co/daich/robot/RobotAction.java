@@ -5,13 +5,11 @@
  */
 package jp.co.daich.robot;
 
-import org.openqa.selenium.WebElement;
-
 /**
  *
  * @author USER
  */
-public class Action {
+public class RobotAction {
 
     /**
      * robot press arg key
@@ -82,10 +80,10 @@ public class Action {
      */
     public static void pressAndReleaseMultipleKeys(int... keyEvents) {
         for (int keyEvent : keyEvents) {
-            Action.keyPress(keyEvent);
+            RobotAction.keyPress(keyEvent);
         }
         for (int i = keyEvents.length - 1; i >= 0; i--) {
-            Action.keyRelease(keyEvents[i]);
+            RobotAction.keyRelease(keyEvents[i]);
         }
     }
 }

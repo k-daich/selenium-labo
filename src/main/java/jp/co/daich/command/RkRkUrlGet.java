@@ -15,8 +15,6 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
  */
 public class RkRkUrlGet {
 
-    // ドライバー中でリスナーを管理するためのクラス
-    EventFiringWebDriver eventFiringDriver = null;
     // URL取得のために使用するリスナー
     LoadNewPageListener eventListener = null;
 
@@ -24,12 +22,10 @@ public class RkRkUrlGet {
      * 遷移URL取得用リスナーを開始
      */
     public void startListener() {
-        //対象のWebDriverをイベント発生クラスに渡しインスタンスを作成する
-        eventFiringDriver = new EventFiringWebDriver(LonlyOnlyDriver.getDriver());
         //イベント捕捉クラスのインスタンスを作成する
         eventListener = new LoadNewPageListener();
         //イベント捕捉クラスをイベント発生クラスへ登録する
-        eventFiringDriver.register(eventListener);
+        LonlyOnlyDriver.registEventListener(eventListener);
     }
 
     /**
@@ -39,7 +35,7 @@ public class RkRkUrlGet {
      */
     public String stopListener() {
         // イベントリスナーの登録解除
-        eventFiringDriver.unregister(eventListener);
+        LonlyOnlyDriver.unregistEventListener(eventListener);
         // 直近の遷移したURLを返す
         return eventListener.getCurrentUrl();
     }

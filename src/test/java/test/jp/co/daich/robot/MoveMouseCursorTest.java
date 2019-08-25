@@ -5,47 +5,25 @@
  */
 package test.jp.co.daich.robot;
 
-import jp.co.daich.driver.LonlyOnlyDriver;
 import jp.co.daich.driver.actions.MyActions;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import test.jp.co.daich.base.TestBase;
 
 /**
  *
  * @author USER
  */
-public class MoveMouseCursorTest {
+public class MoveMouseCursorTest extends TestBase {
 
     public MoveMouseCursorTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     @Test
+    @Override
     public void doTest() {
         //検索ボタンの要素をname属性名から取得
-        WebElement element = LonlyOnlyDriver.findElement(By.linkText("セレクトタグに含まれるオプションを取得する"));
-        System.out.println(element.findElement(By.xpath("..")));
-        MyActions.moveCursorToElement(element);
+        MyActions.moveCursorToElement(By.linkText("規約"));
         MyActions.wait(5000);
         MyActions.mouseClick();
         MyActions.wait(5000);

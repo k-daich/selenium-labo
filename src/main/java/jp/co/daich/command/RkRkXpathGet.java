@@ -39,6 +39,9 @@ public class RkRkXpathGet {
         clickListener = new ClickListener();
         //イベント捕捉クラスをイベント発生クラスへ登録する
         eventFiringDriver.register(clickListener);
+
+        // TODO: delete javascriptのリスナーによるクリックした要素情報取得
+        eventFiringDriver.executeScript("console.log('aa')");
     }
 
     /**

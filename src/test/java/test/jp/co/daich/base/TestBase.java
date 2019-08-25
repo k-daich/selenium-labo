@@ -5,17 +5,22 @@
  */
 package test.jp.co.daich.base;
 
+import jp.co.daich.driver.LonlyOnlyDriver;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
 
 /**
  *
  * @author USER
  */
 public abstract class TestBase {
+
+    WebDriver driver;
+
     /**
      * Constructor
      */
@@ -33,6 +38,7 @@ public abstract class TestBase {
 
     @Before
     public void setUp() {
+        LonlyOnlyDriver.get("https://www.google.co.jp");
     }
 
     @After

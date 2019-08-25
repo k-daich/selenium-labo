@@ -5,9 +5,13 @@
  */
 package jp.co.daich.driver.actions;
 
+import jp.co.daich.constants.KeysMap;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import jp.co.daich.driver.LonlyOnlyDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.interactions.Actions;
+import jp.co.daich.util.Array;
 
 /**
  *
@@ -38,6 +42,24 @@ public class MyActions extends LonlyOnlyDriver {
      */
     public static void keyUp(Keys keys) {
         acts.keyUp(keys).perform();
+    }
+
+    /**
+     * sendKeys to ActiveFocus
+     *
+     * @param keys
+     */
+    public static void sendKeys(String keys) {
+        acts.sendKeys(keys).perform();
+    }
+
+    /**
+     * robot press arg mouseEvent
+     *
+     * @param by
+     */
+    public static void moveCursorToElement(By by) {
+        acts.moveToElement(findElement(by)).perform();
     }
 
     /**
@@ -81,13 +103,18 @@ public class MyActions extends LonlyOnlyDriver {
      *
      * @param keysies
      */
-    public static void pressAndReleaseMultipleKeys(Keys... keysies) {
-        for (Keys keys : keysies) {
-            keyDown(keys);
-        }
-        for (int i = keysies.length - 1; i >= 0; i--) {
-            keyUp(keysies[i]);
-        }
+    public static void pressKeys(String... keysies) {
+        LonlyOnlyDriver.findElement(By.tagName("html")).sendKeys(Keys.chord(keysies));
+
+        /**
+         * KeyDownとKeyUpは複数キーで実行するとエラーになるので没 以下がその時のコード / // // リスト順にキーを押下する //
+         * for (String keysName : keysies) { //
+         * keyDown(KeysMap.getKeys(keysName)); // } // // // リスト順を逆にする // //
+         * String[] reversedArray = new Array<String>().reverse(keysies, new
+         * String[keysies.length]); // // // リスト逆順にキーを離す // for (String keysName
+         * : reversedArray) { // keyUp(KeysMap.getKeys(keysName)); // } }
+         *
+         */
     }
 
     /**
@@ -97,5 +124,9 @@ public class MyActions extends LonlyOnlyDriver {
      */
     public static void click(WebElement wEle) {
         acts.click(wEle);
+    }
+
+    public static Actions getActions() {
+        return acts;
     }
 }

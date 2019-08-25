@@ -6,10 +6,13 @@
 package jp.co.daich.driver;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 /**
  *
@@ -18,15 +21,20 @@ import org.openqa.selenium.interactions.Actions;
 public class LonlyOnlyDriver {
 
     private static final WebDriver driver;
+    private static final EventFiringWebDriver eventDriver;
     protected static final Actions acts;
 
     static {
         // ChromeDriverまでのパスを設定する
-        System.setProperty("webdriver.chrome.driver", "src/test/java/jp/co/webdrivers/chromedriver.76.exe");
+        System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
         driver = new ChromeDriver();
-        driver.get("https://www.seleniumqref.com/api/java/element_infoget/Java_getLocation.html");
+        driver.get("https://www.google.co.jp");
 
         acts = new Actions(driver);
+
+        //対象のWebDriverをイベント発生クラスに渡しインスタンスを作成する
+        eventDriver = new EventFiringWebDriver(LonlyOnlyDriver.getDriver());
+
     }
 
     /**
@@ -56,19 +64,47 @@ public class LonlyOnlyDriver {
     public static WebDriver getDriver() {
         return driver;
     }
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public static String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
-    
+
     /**
      * navigate to URL
-     * @param url 
+     *
+     * @param url
      */
     public static void navigateTo(String url) {
         driver.navigate().to(url);
+    }
+
+    /**
+     * execute Javascript
+     *
+     * @param script
+     */
+    public static void executeJavaScript(String script) {
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        javascriptExecutor.executeScript(script);
+    }
+    
+    /**
+     * regist EventListener
+     * @param eventListener
+     */
+    public static void registEventListener(AbstractWebDriverEventListener eventListener) {
+        eventDriver.register(eventListener);
+    }
+
+    /**
+     * unregist EventListener
+     * @param eventListener
+     */
+    public static void unregistEventListener(AbstractWebDriverEventListener eventListener) {
+        eventDriver.unregister(eventListener);
     }
 }

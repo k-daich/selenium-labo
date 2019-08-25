@@ -6,7 +6,6 @@
 package test.jp.co.daich.selenium.actions;
 
 import java.util.List;
-import java.util.logging.Level;
 import jp.co.daich.driver.LonlyOnlyDriver;
 import jp.co.daich.driver.develop.util.WebElementParser;
 import jp.co.daich.driver.develop.util.logger.Logger;

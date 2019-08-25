@@ -6,59 +6,35 @@
 package test.jp.co.daich.robot;
 
 import java.awt.event.KeyEvent;
-import jp.co.daich.robot.Action;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import jp.co.daich.robot.RobotAction;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import test.jp.co.daich.base.TestBase;
 
 /**
  *
  * @author USER
  */
-public class CntlF5keyTest {
+public class CntlF5keyTest extends TestBase {
 
     private WebDriver driver;
 
     public CntlF5keyTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-        // ChromeDriverまでのパスを設定する
-        System.setProperty("webdriver.chrome.driver", "src/test/java/jp/co/webdrivers/chromedriver.76.exe");
-        driver = new ChromeDriver();
-        driver.get("https://caniuse.com/");
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-    @Test
+//    @Test
+    @Override
     public void doTest() {
         try {
             long waitTime = 3000;
 
             for (int i = 0; i < 5; i++) {
                 // ctrl + F5  
-                Action.keyPress(KeyEvent.VK_CONTROL);
-                Action.keyPress(KeyEvent.VK_F5);
+                RobotAction.keyPress(KeyEvent.VK_CONTROL);
+                RobotAction.keyPress(KeyEvent.VK_F5);
 
                 // CTRL+F5 is now pressed 
-                Action.keyRelease(KeyEvent.VK_F5);
-                Action.keyRelease(KeyEvent.VK_CONTROL);
+                RobotAction.keyRelease(KeyEvent.VK_F5);
+                RobotAction.keyRelease(KeyEvent.VK_CONTROL);
 
                 Thread.sleep(waitTime);
             }
@@ -66,7 +42,5 @@ public class CntlF5keyTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        driver.close();
     }
 }

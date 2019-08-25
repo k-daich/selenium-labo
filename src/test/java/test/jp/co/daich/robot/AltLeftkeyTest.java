@@ -6,76 +6,47 @@
 package test.jp.co.daich.robot;
 
 import java.awt.event.KeyEvent;
-import jp.co.daich.robot.Action;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import jp.co.daich.robot.RobotAction;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import test.jp.co.daich.base.TestBase;
 
 /**
  *
  * @author USER
  */
-public class AltLeftkeyTest {
-
-    private WebDriver driver;
+public class AltLeftkeyTest extends TestBase {
 
     public AltLeftkeyTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-        // ChromeDriverまでのパスを設定する
-        System.setProperty("webdriver.chrome.driver", "src/test/java/jp/co/webdrivers/chromedriver.76.exe");
-        driver = new ChromeDriver();
-        driver.get("https://caniuse.com/");
-        driver.get("http://vermeer.hatenablog.jp/entry/2018/05/30/171915");
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     @Test
+    @Override
     public void doTest() {
         try {
             long waitTime = 3000;
 
             // Alt + ←  
-            Action.keyPress(KeyEvent.VK_ALT);
-            Action.keyPress(KeyEvent.VK_LEFT);
+            RobotAction.keyPress(KeyEvent.VK_ALT);
+            RobotAction.keyPress(KeyEvent.VK_LEFT);
 
             // Alt + ←   is now pressed 
-            Action.keyRelease(KeyEvent.VK_LEFT);
-            Action.keyRelease(KeyEvent.VK_ALT);
+            RobotAction.keyRelease(KeyEvent.VK_LEFT);
+            RobotAction.keyRelease(KeyEvent.VK_ALT);
 
             Thread.sleep(waitTime);
 
             // Alt + ←  
-            Action.keyPress(KeyEvent.VK_ALT);
-            Action.keyPress(KeyEvent.VK_RIGHT);
+            RobotAction.keyPress(KeyEvent.VK_ALT);
+            RobotAction.keyPress(KeyEvent.VK_RIGHT);
 
             // Alt + ←   is now pressed 
-            Action.keyRelease(KeyEvent.VK_RIGHT);
-            Action.keyRelease(KeyEvent.VK_ALT);
+            RobotAction.keyRelease(KeyEvent.VK_RIGHT);
+            RobotAction.keyRelease(KeyEvent.VK_ALT);
 
             Thread.sleep(waitTime);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        driver.close();
     }
 }
