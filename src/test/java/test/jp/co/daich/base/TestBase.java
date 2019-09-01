@@ -6,6 +6,7 @@
 package test.jp.co.daich.base;
 
 import jp.co.daich.driver.LonlyOnlyDriver;
+import jp.co.daich.driver.develop.util.logger.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,7 +39,8 @@ public abstract class TestBase {
 
     @Before
     public void setUp() {
-        LonlyOnlyDriver.get("https://www.google.co.jp");
+        Logger.printSevere("☆☆☆" + this.getClass().getSimpleName() + "☆☆☆");
+        LonlyOnlyDriver.get("https://www.seleniumqref.com/api/java/element_infoget/Java_getLocation.html");
     }
 
     @After

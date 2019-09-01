@@ -7,7 +7,6 @@ package jp.co.daich.command;
 
 import jp.co.daich.driver.LonlyOnlyDriver;
 import jp.co.daich.driver.develop.util.event.listener.LoadNewPageListener;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 /**
  *

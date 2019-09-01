@@ -5,13 +5,11 @@
  */
 package jp.co.daich.driver.actions;
 
-import jp.co.daich.constants.KeysMap;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import jp.co.daich.driver.LonlyOnlyDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
-import jp.co.daich.util.Array;
 
 /**
  *

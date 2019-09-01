@@ -5,6 +5,11 @@
  */
 package jp.co.daich.robot;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author USER
@@ -58,16 +63,18 @@ public class RobotAction {
 
     /**
      * robot move mouse at args X and Y
+     *
      * @param x
      * @param y
      */
     public static void mouseMove(int x, int y) {
-        LonelyRobot.getInstance().mouseMove(x,y);
+        LonelyRobot.getInstance().mouseMove(x, y);
     }
 
     /**
      * robot delay mill seconds
-     * @param millSec 
+     *
+     * @param millSec
      */
     public static void delay(int millSec) {
         LonelyRobot.getInstance().delay(millSec);
@@ -78,12 +85,27 @@ public class RobotAction {
      *
      * @param keyEvents
      */
-    public static void pressAndReleaseMultipleKeys(int... keyEvents) {
+    public static void pressKeys(int... keyEvents) {
         for (int keyEvent : keyEvents) {
             RobotAction.keyPress(keyEvent);
         }
         for (int i = keyEvents.length - 1; i >= 0; i--) {
             RobotAction.keyRelease(keyEvents[i]);
         }
+    }
+
+    /**
+     * コピペを利用して文字列を送る
+     * @param text
+     */
+    public static void sendKeysByKoPiPe(String text) {
+        StringSelection stringSelection = new StringSelection(text);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, stringSelection);
+
+        RobotAction.keyPress(KeyEvent.VK_CONTROL);
+        RobotAction.keyPress(KeyEvent.VK_V);
+        RobotAction.keyRelease(KeyEvent.VK_V);
+        RobotAction.keyRelease(KeyEvent.VK_CONTROL);
     }
 }
