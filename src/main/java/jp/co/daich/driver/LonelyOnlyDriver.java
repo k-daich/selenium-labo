@@ -5,11 +5,16 @@
  */
 package jp.co.daich.driver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+import java.io.File;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -18,7 +23,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
  *
  * @author USER
  */
-public class LonlyOnlyDriver {
+public class LonelyOnlyDriver {
 
     private static final WebDriver driver;
     private static final EventFiringWebDriver eventDriver;
@@ -27,13 +32,17 @@ public class LonlyOnlyDriver {
     static {
         // ChromeDriverまでのパスを設定する
         System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
+//        System.setProperty("webdriver.edge.driver", "src/main/java/jp/co/webdrivers/MicrosoftWebDriver.exe");
+
+        WebDriverManager.edgedriver().setup();
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("https://www.google.co.jp");
 
         acts = new Actions(driver);
 
         //対象のWebDriverをイベント発生クラスに渡しインスタンスを作成する
-        eventDriver = new EventFiringWebDriver(LonlyOnlyDriver.getDriver());
+        eventDriver = new EventFiringWebDriver(LonelyOnlyDriver.getDriver());
 
     }
 
@@ -106,5 +115,10 @@ public class LonlyOnlyDriver {
      */
     public static void unregistEventListener(AbstractWebDriverEventListener eventListener) {
         eventDriver.unregister(eventListener);
+    }
+    
+    public static void getScreenShot() {
+        File sFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+//        sFile.
     }
 }

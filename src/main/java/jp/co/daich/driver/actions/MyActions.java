@@ -7,7 +7,7 @@ package jp.co.daich.driver.actions;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import jp.co.daich.driver.LonlyOnlyDriver;
+import jp.co.daich.driver.LonelyOnlyDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 
@@ -15,7 +15,7 @@ import org.openqa.selenium.interactions.Actions;
  *
  * @author USER
  */
-public class MyActions extends LonlyOnlyDriver {
+public class MyActions extends LonelyOnlyDriver {
 
     /**
      * Constructor
@@ -49,6 +49,16 @@ public class MyActions extends LonlyOnlyDriver {
      */
     public static void sendKeys(String keys) {
         acts.sendKeys(keys).perform();
+    }
+
+    /**
+     * sendKeys to ActiveFocus
+     *
+     * @param webElement
+     * @param keys
+     */
+    public static void sendKeys(WebElement webElement, String keys) {
+        acts.sendKeys(webElement, keys).perform();
     }
 
     /**
@@ -102,7 +112,7 @@ public class MyActions extends LonlyOnlyDriver {
      * @param keysies
      */
     public static void pressKeys(String... keysies) {
-        LonlyOnlyDriver.findElement(By.tagName("html")).sendKeys(Keys.chord(keysies));
+        LonelyOnlyDriver.findElement(By.tagName("html")).sendKeys(Keys.chord(keysies));
 
         /**
          * KeyDownとKeyUpは複数キーで実行するとエラーになるので没 以下がその時のコード / // // リスト順にキーを押下する //

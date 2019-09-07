@@ -5,7 +5,7 @@
  */
 package test.jp.co.daich.selenium.actions;
 
-import jp.co.daich.driver.LonlyOnlyDriver;
+import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.driver.develop.util.event.listener.ClickListener;
 import org.openqa.selenium.By;
 import test.jp.co.daich.base.TestBase;
@@ -21,11 +21,11 @@ public class EventListenerFromWebSiteTest extends TestBase {
         //イベント捕捉クラスのインスタンスを作成する
         ClickListener eventListener = new ClickListener();
         //イベント捕捉クラスをイベント発生クラスへ登録する
-        LonlyOnlyDriver.registEventListener(eventListener);
+        LonelyOnlyDriver.registEventListener(eventListener);
         //指定したURLを開く
-        LonlyOnlyDriver.get("https://www.google.co.jp");
+        LonelyOnlyDriver.get("https://www.google.co.jp");
         //「Gmail」のリンクテキストをクリックする
-        LonlyOnlyDriver.findElement(By.linkText("Gmail")).click();
+        LonelyOnlyDriver.findElement(By.linkText("Gmail")).click();
     }
 
 }

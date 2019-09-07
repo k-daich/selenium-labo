@@ -5,7 +5,7 @@
  */
 package test.jp.co.daich.selenium.actions;
 
-import jp.co.daich.driver.LonlyOnlyDriver;
+import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.driver.actions.MyActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -26,7 +26,7 @@ public class PressKeysTest extends TestBase {
                 "LEFT");
         MyActions.wait(3000);
 
-        LonlyOnlyDriver.findElement(By.tagName("body")).sendKeys(Keys.F5);
+        LonelyOnlyDriver.findElement(By.tagName("body")).sendKeys(Keys.F5);
         MyActions.pressKeys(
                 "ALT",
                 "LEFT");
@@ -36,7 +36,7 @@ public class PressKeysTest extends TestBase {
 
         MyActions.wait(3000);
 
-        LonlyOnlyDriver.findElement(By.tagName("body")).sendKeys(Keys.F5);
+        LonelyOnlyDriver.findElement(By.tagName("body")).sendKeys(Keys.F5);
         MyActions.pressKeys(
                 "F5");
 

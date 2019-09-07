@@ -6,7 +6,7 @@
 package jp.co.daich.command;
 
 import java.util.List;
-import jp.co.daich.driver.LonlyOnlyDriver;
+import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.driver.actions.MyActions;
 import jp.co.daich.driver.develop.util.ThreadUtil;
 import jp.co.daich.driver.develop.util.WebElementParser;
@@ -34,7 +34,7 @@ public class RkRkXpathGet {
      */
     public void startListener() {
         //対象のWebDriverをイベント発生クラスに渡しインスタンスを作成する
-        eventFiringDriver = new EventFiringWebDriver(LonlyOnlyDriver.getDriver());
+        eventFiringDriver = new EventFiringWebDriver(LonelyOnlyDriver.getDriver());
         //イベント捕捉クラスのインスタンスを作成する
         clickListener = new ClickListener();
         //イベント捕捉クラスをイベント発生クラスへ登録する
@@ -60,7 +60,7 @@ public class RkRkXpathGet {
             Logger.printSevere("wait taimes : " + i);
 
             // TODO: Delete Test Code
-            MyActions.click(LonlyOnlyDriver.findElement(By.linkText("セレクトタグに含まれるオプションを取得する")));
+            MyActions.click(LonelyOnlyDriver.findElement(By.linkText("セレクトタグに含まれるオプションを取得する")));
 
             if (clickListener.getClickedWebElement() != null
                     && clickListener.getClickedWebElement() != lastClickedWebElement) {

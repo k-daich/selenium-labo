@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ベーシック認証突破用HTML</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <form>
+            <input name="url" type="text" id="urlFd" value="" style=" width:400px; "><br>
+            <input type="button" value="開く" id="postFd" onclick="window.open(this.form.url.value, 'freelink')">
+        </form>
+        <h1>Basic認証突破</h1>
+        <form name="authenticate">
+            URL　　　：<input type="text" id="url"/><br/>
+            <button type="button" id="post">進む</button>
+        </form>
+        <script src="./js/basicAuthRelay.js"></script>
+    </body>
+</html>

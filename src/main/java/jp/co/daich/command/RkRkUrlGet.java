@@ -5,7 +5,7 @@
  */
 package jp.co.daich.command;
 
-import jp.co.daich.driver.LonlyOnlyDriver;
+import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.driver.develop.util.event.listener.LoadNewPageListener;
 
 /**
@@ -24,7 +24,7 @@ public class RkRkUrlGet {
         //イベント捕捉クラスのインスタンスを作成する
         eventListener = new LoadNewPageListener();
         //イベント捕捉クラスをイベント発生クラスへ登録する
-        LonlyOnlyDriver.registEventListener(eventListener);
+        LonelyOnlyDriver.registEventListener(eventListener);
     }
 
     /**
@@ -34,7 +34,7 @@ public class RkRkUrlGet {
      */
     public String stopListener() {
         // イベントリスナーの登録解除
-        LonlyOnlyDriver.unregistEventListener(eventListener);
+        LonelyOnlyDriver.unregistEventListener(eventListener);
         // 直近の遷移したURLを返す
         return eventListener.getCurrentUrl();
     }

@@ -7,11 +7,8 @@
 package jp.co.daich.command;
 
 import java.awt.event.KeyEvent;
-import java.io.File;
 import jp.co.daich.driver.develop.util.ThreadUtil;
 import jp.co.daich.robot.RobotAction;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 /**
  *

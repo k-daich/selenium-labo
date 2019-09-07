@@ -6,7 +6,7 @@
 package test.jp.co.daich.selenium.actions;
 
 import java.util.List;
-import jp.co.daich.driver.LonlyOnlyDriver;
+import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.driver.develop.util.WebElementParser;
 import jp.co.daich.driver.develop.util.logger.Logger;
 import jp.co.daich.driver.develop.util.xpath.candidate.FullPath;
@@ -26,7 +26,7 @@ public class XpathCandidateTest extends TestBase {
         CandidateBase candidate = new FullPath();
 
         //検索ボタンの要素をname属性名から取得
-        WebElement element = LonlyOnlyDriver.findElement(By.linkText("セレクトタグに含まれるオプションを取得する"));
+        WebElement element = LonelyOnlyDriver.findElement(By.linkText("セレクトタグに含まれるオプションを取得する"));
         List<String> xpaths = candidate.getXpaths(
                 WebElementParser.getTagHierarchy(element));
 

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 import jp.co.daich.constants.properNoun.XML;
-import jp.co.daich.driver.LonlyOnlyDriver;
+import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.driver.develop.util.xpath.candidate.base.CandidateBase;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -93,7 +93,7 @@ public class FullPath extends CandidateBase {
      */
     @Override
     protected boolean isQualified(String xpath) {
-        WebElement element = LonlyOnlyDriver.findElement(By.xpath(xpath));
+        WebElement element = LonelyOnlyDriver.findElement(By.xpath(xpath));
 
         // FullPath指定の場合は必ず採用する
         return true;
