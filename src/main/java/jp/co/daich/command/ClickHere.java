@@ -6,6 +6,7 @@
 package jp.co.daich.command;
 
 import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.actions.MyActions;
 import jp.co.daich.driver.develop.util.logger.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -23,10 +24,12 @@ public class ClickHere {
         // none
     }
 
-    public void execute(By by) {
+    public static void execute(By by) {
         WebElement wEle = LonelyOnlyDriver.findElement(by);
         Logger.printSevere("element Location X is : " + wEle.getLocation().getX());
         Logger.printSevere("element Location Y is : " + wEle.getLocation().getY());
+        LonelyOnlyDriver.getClickHereScreenShot(wEle);
+        LonelyOnlyDriver.findElement(by).click();
         LonelyOnlyDriver.getScreenShot();
     }
 }

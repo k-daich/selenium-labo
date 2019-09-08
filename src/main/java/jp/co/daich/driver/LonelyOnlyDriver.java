@@ -7,6 +7,13 @@ package jp.co.daich.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import jp.co.daich.driver.develop.util.file.image.ClickHereImageProcessor;
+import jp.co.daich.driver.develop.util.logger.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -25,25 +32,43 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
  */
 public class LonelyOnlyDriver {
 
+    private static int fileSeq = 0;
     private static final WebDriver driver;
     private static final EventFiringWebDriver eventDriver;
     protected static final Actions acts;
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss__");
 
     static {
+        driver = launchChromeDriver();
         // ChromeDriverまでのパスを設定する
-        System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
-//        System.setProperty("webdriver.edge.driver", "src/main/java/jp/co/webdrivers/MicrosoftWebDriver.exe");
-
-        WebDriverManager.edgedriver().setup();
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
         driver.get("https://www.google.co.jp");
 
         acts = new Actions(driver);
 
         //対象のWebDriverをイベント発生クラスに渡しインスタンスを作成する
         eventDriver = new EventFiringWebDriver(LonelyOnlyDriver.getDriver());
+    }
 
+    /**
+     * setup chrome driver
+     *
+     * @return chromeDriver
+     */
+    private static WebDriver launchChromeDriver() {
+//        System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
+        WebDriverManager.chromedriver().setup();
+        return new ChromeDriver();
+    }
+
+    /**
+     * setup edge driver
+     *
+     * @return edgeDriver
+     */
+    private static WebDriver launchEdgeDriver() {
+//        System.setProperty("webdriver.edge.driver", "src/main/java/jp/co/webdrivers/MicrosoftWebDriver.exe");
+        WebDriverManager.edgedriver().setup();
+        return new EdgeDriver();
     }
 
     /**
@@ -100,9 +125,10 @@ public class LonelyOnlyDriver {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         javascriptExecutor.executeScript(script);
     }
-    
+
     /**
      * regist EventListener
+     *
      * @param eventListener
      */
     public static void registEventListener(AbstractWebDriverEventListener eventListener) {
@@ -111,14 +137,58 @@ public class LonelyOnlyDriver {
 
     /**
      * unregist EventListener
+     *
      * @param eventListener
      */
     public static void unregistEventListener(AbstractWebDriverEventListener eventListener) {
         eventDriver.unregister(eventListener);
     }
-    
+
+    public static void getClickHereScreenShot(WebElement clickeEle) {
+        // webdriverで撮った一時スクショファイル
+        File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        Date date = new Date();
+        // スクリーンショット出力先
+        String outputPath = "C:\\Users\\USER\\Pictures\\" + dateFormat.format(date) + fileSeq++ + "_output.png";
+
+        // 入力/出力ストリーム開始
+        try (
+                FileInputStream inStream = new FileInputStream(sFile);
+                FileOutputStream outStream = new FileOutputStream(outputPath);) {
+            int readBytes;
+            // 入力ストリームの読み込んだバイト数だけファイルに書き出す
+            while ((readBytes = inStream.read()) != -1) {
+                outStream.write(readBytes);
+            }
+            Logger.printSevere("store screens shot at : " + outputPath);
+        } catch (IOException ex) {
+            Logger.printSevere(ex.getMessage());
+        }
+        // クリックヒア画像を生成
+        ClickHereImageProcessor.composit(outputPath,
+                clickeEle.getLocation().getX() + clickeEle.getRect().getWidth() / 2,
+                clickeEle.getLocation().getY() + clickeEle.getRect().getHeight() / 2);
+    }
+
     public static void getScreenShot() {
-        File sFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-//        sFile.
+        // webdriverで撮った一時スクショファイル
+        File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        Date date = new Date();
+        // スクリーンショット出力先
+        String outputPath = "C:\\Users\\USER\\Pictures\\" + dateFormat.format(date) + fileSeq++ + "_output.png";
+
+        // 入力/出力ストリーム開始
+        try (
+                FileInputStream inStream = new FileInputStream(sFile);
+                FileOutputStream outStream = new FileOutputStream(outputPath);) {
+            int readBytes;
+            // 入力ストリームの読み込んだバイト数だけファイルに書き出す
+            while ((readBytes = inStream.read()) != -1) {
+                outStream.write(readBytes);
+            }
+            Logger.printSevere("store screens shot at : " + outputPath);
+        } catch (IOException ex) {
+            Logger.printSevere(ex.getMessage());
+        }
     }
 }
