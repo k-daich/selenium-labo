@@ -6,8 +6,6 @@
 package test.jp.co.daich.selenium.actions;
 
 import jp.co.daich.command.ClickHere;
-import jp.co.daich.driver.LonelyOnlyDriver;
-import jp.co.daich.driver.actions.MyActions;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import test.jp.co.daich.base.TestBase;

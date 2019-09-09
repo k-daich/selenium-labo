@@ -10,10 +10,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import jp.co.daich.driver.develop.util.file.image.ClickHereImageProcessor;
-import jp.co.daich.driver.develop.util.logger.Logger;
+import jp.co.daich.util.file.image.ClickHereImageProcessor;
+import jp.co.daich.util.logger.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -22,6 +21,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -36,10 +36,9 @@ public class LonelyOnlyDriver {
     private static final WebDriver driver;
     private static final EventFiringWebDriver eventDriver;
     protected static final Actions acts;
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss__");
 
     static {
-        driver = launchChromeDriver();
+        driver = launchEdgeDriver();
         // ChromeDriverまでのパスを設定する
         driver.get("https://www.google.co.jp");
 
@@ -69,6 +68,17 @@ public class LonelyOnlyDriver {
 //        System.setProperty("webdriver.edge.driver", "src/main/java/jp/co/webdrivers/MicrosoftWebDriver.exe");
         WebDriverManager.edgedriver().setup();
         return new EdgeDriver();
+    }
+
+    /**
+     * setup chrome driver
+     *
+     * @return chromeDriver
+     */
+    private static WebDriver launchFirefoxDriver() {
+//        System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
+        WebDriverManager.firefoxdriver().setup();
+        return new FirefoxDriver();
     }
 
     /**
@@ -144,12 +154,12 @@ public class LonelyOnlyDriver {
         eventDriver.unregister(eventListener);
     }
 
-    public static void getClickHereScreenShot(WebElement clickeEle) {
+    public static void getClickHereScreenShot(WebElement clickeEle, String imgStorePath) {
         // webdriverで撮った一時スクショファイル
         File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         Date date = new Date();
         // スクリーンショット出力先
-        String outputPath = "C:\\Users\\USER\\Pictures\\" + dateFormat.format(date) + fileSeq++ + "_output.png";
+        String outputPath = imgStorePath + "\\" + fileSeq++ + "_output.png";
 
         // 入力/出力ストリーム開始
         try (
@@ -160,22 +170,24 @@ public class LonelyOnlyDriver {
             while ((readBytes = inStream.read()) != -1) {
                 outStream.write(readBytes);
             }
-            Logger.printSevere("store screens shot at : " + outputPath);
+            Logger.printInfo("store screens shot at : " + outputPath);
         } catch (IOException ex) {
-            Logger.printSevere(ex.getMessage());
+            Logger.printInfo(ex.getMessage());
         }
+        Logger.printInfo("click here target center position X : " + clickeEle.getRect().getWidth() / 2);
+        Logger.printInfo("click here target center position Y : " + clickeEle.getRect().getHeight() / 2);
         // クリックヒア画像を生成
         ClickHereImageProcessor.composit(outputPath,
                 clickeEle.getLocation().getX() + clickeEle.getRect().getWidth() / 2,
                 clickeEle.getLocation().getY() + clickeEle.getRect().getHeight() / 2);
     }
 
-    public static void getScreenShot() {
+    public static void getScreenShot(String imgStorePath) {
         // webdriverで撮った一時スクショファイル
         File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         Date date = new Date();
         // スクリーンショット出力先
-        String outputPath = "C:\\Users\\USER\\Pictures\\" + dateFormat.format(date) + fileSeq++ + "_output.png";
+        String outputPath = imgStorePath + "\\" + fileSeq++ + "_output.png";
 
         // 入力/出力ストリーム開始
         try (
@@ -186,9 +198,9 @@ public class LonelyOnlyDriver {
             while ((readBytes = inStream.read()) != -1) {
                 outStream.write(readBytes);
             }
-            Logger.printSevere("store screens shot at : " + outputPath);
+            Logger.printInfo("store screens shot at : " + outputPath);
         } catch (IOException ex) {
-            Logger.printSevere(ex.getMessage());
+            Logger.printInfo(ex.getMessage());
         }
     }
 }

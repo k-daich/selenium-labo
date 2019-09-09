@@ -11,7 +11,7 @@ import jp.co.daich.driver.actions.MyActions;
 import jp.co.daich.driver.develop.util.ThreadUtil;
 import jp.co.daich.driver.develop.util.WebElementParser;
 import jp.co.daich.driver.develop.util.event.listener.ClickListener;
-import jp.co.daich.driver.develop.util.logger.Logger;
+import jp.co.daich.util.logger.Logger;
 import jp.co.daich.driver.develop.util.xpath.candidate.FullPath;
 import jp.co.daich.driver.develop.util.xpath.candidate.base.CandidateBase;
 import org.openqa.selenium.By;
@@ -57,7 +57,7 @@ public class RkRkXpathGet {
         for (int i = 0; i < 5; i++) {
             // 3秒待機
             ThreadUtil.sleep(3000);
-            Logger.printSevere("wait taimes : " + i);
+            Logger.printInfo("wait taimes : " + i);
 
             // TODO: Delete Test Code
             MyActions.click(LonelyOnlyDriver.findElement(By.linkText("セレクトタグに含まれるオプションを取得する")));

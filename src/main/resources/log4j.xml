@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"><!--①DTD宣言 -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" ><!--②名前空間 -->
+
+    <!--③appender定義 -->
+    <appender name="stdout" class="org.apache.log4j.FileAppender">
+        <param name="File" value="C:\work\g_gits\selenium-labo\daich.log" />
+        <param name="Append" value="true" />
+        <param name="Encoding" value="UTF-8" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n" />
+        </layout>
+    </appender>
+
+    <appender name="debug_log" class="org.apache.log4j.FileAppender">
+        <param name="File" value="C:\\work\\g_gits\selenium-labo\\daich_debug.log" />
+        <param name="Append" value="true" />
+        <param name="Encoding" value="UTF-8" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n" />
+        </layout>
+    </appender>
+
+    <!--③logger定義 -->
+    <logger name="log4j.sample.console">
+        <appender-ref ref="stdout" />
+    </logger>
+
+    <root level="debug">
+        <appender-ref ref="debug_log"/>
+    </root>
+
+</log4j:configuration>

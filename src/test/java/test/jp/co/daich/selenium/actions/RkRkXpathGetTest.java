@@ -7,7 +7,7 @@ package test.jp.co.daich.selenium.actions;
 
 import java.util.List;
 import jp.co.daich.command.RkRkXpathGet;
-import jp.co.daich.driver.develop.util.logger.Logger;
+import jp.co.daich.util.logger.Logger;
 import test.jp.co.daich.base.TestBase;
 
 /**
@@ -26,7 +26,7 @@ public class RkRkXpathGetTest extends TestBase {
         List<String> xpaths = rkrkXpathGet.waitClick();
 
         for (String xpath : xpaths) {
-            Logger.printSevere("result of RkRkXpathGet : " + xpath);
+            Logger.printInfo("result of RkRkXpathGet : " + xpath);
         }
     }
 }

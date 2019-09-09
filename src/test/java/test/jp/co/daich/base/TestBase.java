@@ -6,7 +6,7 @@
 package test.jp.co.daich.base;
 
 import jp.co.daich.driver.LonelyOnlyDriver;
-import jp.co.daich.driver.develop.util.logger.Logger;
+import jp.co.daich.util.logger.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,7 +39,7 @@ public abstract class TestBase {
 
     @Before
     public void setUp() {
-        Logger.printSevere("☆☆☆" + this.getClass().getSimpleName() + "☆☆☆");
+        Logger.printInfo("☆☆☆" + this.getClass().getSimpleName() + "☆☆☆");
         LonelyOnlyDriver.get("https://www.seleniumqref.com/api/java/element_infoget/Java_getLocation.html");
     }
 

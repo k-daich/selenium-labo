@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jp.co.daich.driver.develop.util.file.image;
+package jp.co.daich.util.file.image;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 import javax.imageio.ImageIO;
-import jp.co.daich.driver.develop.util.logger.Logger;
+import jp.co.daich.util.logger.Logger;
 
 /**
  *
@@ -41,6 +40,8 @@ public class ImageCompositor {
             graphics = bufferedImage_base.getGraphics();
             // 合成処理を実施する
             graphics.drawImage(bufferedImage_adding, locationX, locationY, null);
+            Logger.printInfo("actual draw X at : " + locationX);
+            Logger.printInfo("actual draw Y at : " + locationY);
         } finally {
             graphics.dispose();
         }
@@ -49,7 +50,7 @@ public class ImageCompositor {
         try {
             ImageIO.write(bufferedImage_base, "png", new File(baseImagePath + "_compo.png"));
         } catch (IOException ex) {
-            Logger.printSevere(ex.getMessage());
+            Logger.printInfo(ex.getMessage());
         }
     }
 
@@ -62,7 +63,7 @@ public class ImageCompositor {
         try {
             return ImageIO.read(new File(path));
         } catch (IOException ex) {
-            Logger.printSevere(ex.getMessage());
+            Logger.printInfo(ex.getMessage());
         }
         throw new RuntimeException("ファイル合成時に元となるファイルが存在せずエラー。 failePath : " + path);
     }

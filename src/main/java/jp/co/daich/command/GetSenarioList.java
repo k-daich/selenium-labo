@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jp.co.daich.seanario.finder.ExcelFinder;
-import jp.co.daich.driver.develop.util.logger.Logger;
+import jp.co.daich.util.logger.Logger;
 import jp.co.daich.seanario.reader.ExcelSeanarioReader;
         
 /**
@@ -31,8 +31,8 @@ public class GetSenarioList {
         List<File> files = ExcelFinder.find(baseDir);
 
         files.forEach((file) -> {
-            Logger.printSevere("file Name : " + file.getName());
-            Logger.printSevere("sheet Names : " + ExcelSeanarioReader.read(file));
+            Logger.printInfo("file Name : " + file.getName());
+            Logger.printInfo("sheet Names : " + ExcelSeanarioReader.read(file));
         });
 
         return new HashMap<>();

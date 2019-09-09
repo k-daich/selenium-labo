@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import jp.co.daich.util.properNoun.FileLogic;
-import jp.co.daich.driver.develop.util.logger.Logger;
+import jp.co.daich.util.logger.Logger;
 
 /**
  *
@@ -35,16 +35,16 @@ public class ExcelFinder {
         File[] files = dir.listFiles();
 
         for (File file : files) {
-            Logger.printSevere("find FileName :" + file.getName());
+            Logger.printInfo("find FileName :" + file.getName());
             // ファイルであるか、かつエクセルファイルであるか
             if (file.isFile()
                     && FileLogic.isExcel(file)) {
-                Logger.printSevere("〇 it is Excel File :" + file.getName());
+                Logger.printInfo("〇 it is Excel File :" + file.getName());
                 // エクセルファイルであればファイル一覧に追加する
                 excelFileList.add(file);
             }
             else {
-                Logger.printSevere("× it is not Excel File :" + file.getName());
+                Logger.printInfo("× it is not Excel File :" + file.getName());
             }
         }
         return excelFileList;
