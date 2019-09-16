@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import jp.co.daich.constants.properNoun.WINDOWS;
 import jp.co.daich.util.file.image.ClickHereImageProcessor;
 import jp.co.daich.util.logger.Logger;
 import org.openqa.selenium.By;
@@ -38,7 +39,7 @@ public class LonelyOnlyDriver {
     protected static final Actions acts;
 
     static {
-        driver = launchEdgeDriver();
+        driver = launchChromeDriver();
         // ChromeDriverまでのパスを設定する
         driver.get("https://www.google.co.jp");
 
@@ -101,6 +102,13 @@ public class LonelyOnlyDriver {
     }
 
     /**
+     * quit driver
+     */
+    public static void quit() {
+        driver.quit();
+    }
+    
+    /**
      * get WebDriver
      *
      * @return
@@ -159,7 +167,7 @@ public class LonelyOnlyDriver {
         File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         Date date = new Date();
         // スクリーンショット出力先
-        String outputPath = imgStorePath + "\\" + fileSeq++ + "_output.png";
+        String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
 
         // 入力/出力ストリーム開始
         try (
@@ -187,7 +195,7 @@ public class LonelyOnlyDriver {
         File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         Date date = new Date();
         // スクリーンショット出力先
-        String outputPath = imgStorePath + "\\" + fileSeq++ + "_output.png";
+        String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
 
         // 入力/出力ストリーム開始
         try (

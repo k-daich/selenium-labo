@@ -13,7 +13,7 @@
     </appender>
 
     <appender name="debug_log" class="org.apache.log4j.FileAppender">
-        <param name="File" value="C:\\work\\g_gits\selenium-labo\\daich_debug.log" />
+        <param name="File" value="C:\\work\g_gits\selenium-labo\\daich_debug.log" />
         <param name="Append" value="true" />
         <param name="Encoding" value="UTF-8" />
         <layout class="org.apache.log4j.PatternLayout">

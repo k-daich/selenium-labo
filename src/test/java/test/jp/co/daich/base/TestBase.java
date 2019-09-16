@@ -12,15 +12,12 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 
 /**
  *
  * @author USER
  */
 public abstract class TestBase {
-
-    WebDriver driver;
 
     /**
      * Constructor
@@ -45,7 +42,7 @@ public abstract class TestBase {
 
     @After
     public void tearDown() {
-//        driver.quit();
+//        LonelyOnlyDriver.quit();
     }
 
     @Test

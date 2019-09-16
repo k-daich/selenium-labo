@@ -15,12 +15,12 @@ import jp.co.daich.util.logger.Logger;
  *
  * @author USER
  */
-public class FilesUtil {
+public class FolderFactory {
 
     /**
      * Invalidate default constructor
      */
-    private FilesUtil() {
+    private FolderFactory() {
     }
 
     /**

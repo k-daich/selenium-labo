@@ -48,6 +48,7 @@ public class WriteEnviromentTxt {
 
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("Date    : ").append(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(ProjectCommon.TEST_DATE)).append("\n");
+        strBuilder.append("Tester  : ").append(System.getProperty("user.name")).append("\n");
         strBuilder.append("HostOS  : ").append(System.getProperty("os.name")).append("\n");
         strBuilder.append("Browser : ").append(capabilities.getBrowserName()).append("\n");
         strBuilder.append("Version : ").append(capabilities.getVersion()).append("\n");

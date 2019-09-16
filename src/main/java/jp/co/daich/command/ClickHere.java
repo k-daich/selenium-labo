@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import jp.co.daich.constants.ProjectCommon;
 import jp.co.daich.driver.LonelyOnlyDriver;
-import jp.co.daich.util.file.FilesUtil;
+import jp.co.daich.util.file.FolderFactory;
 import jp.co.daich.util.logger.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -32,7 +32,7 @@ public class ClickHere {
     public static void execute(By by) {
         Logger.printInfo("☆☆☆☆☆ClickHere Start☆☆☆☆☆");
         // 格納先ディレクトリを作成する
-        FilesUtil.mkdir(IMG_STORE_PATH);
+        FolderFactory.mkdir(IMG_STORE_PATH);
 
         WebElement wEle = LonelyOnlyDriver.findElement(by);
         Logger.printInfo("element Location X is : " + wEle.getLocation().getX());

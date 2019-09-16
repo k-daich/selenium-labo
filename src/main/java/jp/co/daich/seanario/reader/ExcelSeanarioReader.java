@@ -6,6 +6,7 @@
 package jp.co.daich.seanario.reader;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,7 +28,7 @@ public class ExcelSeanarioReader {
 
         try {
             // java.io.Fileから
-            workbook = WorkbookFactory.create(file);
+            workbook = WorkbookFactory.create(new FileInputStream(file));
         } catch (IOException | EncryptedDocumentException ex) {
             throw new RuntimeException("Excelの読み込み失敗：" + file.getName() + "\n" + ex);
         }
