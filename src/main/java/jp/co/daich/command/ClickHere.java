@@ -5,8 +5,6 @@
  */
 package jp.co.daich.command;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import jp.co.daich.constants.ProjectCommon;
 import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.util.file.FolderFactory;
@@ -35,8 +33,8 @@ public class ClickHere {
         FolderFactory.mkdir(IMG_STORE_PATH);
 
         WebElement wEle = LonelyOnlyDriver.findElement(by);
-        Logger.printInfo("element Location X is : " + wEle.getLocation().getX());
-        Logger.printInfo("element Location Y is : " + wEle.getLocation().getY());
+        Logger.printInfo("create fileNo : " + LonelyOnlyDriver.getFileIndex() + " :: element Location X is : " + wEle.getLocation().getX());
+        Logger.printInfo("create fileNo : " + LonelyOnlyDriver.getFileIndex() + " :: element Location Y is : " + wEle.getLocation().getY());
         LonelyOnlyDriver.getClickHereScreenShot(wEle, IMG_STORE_PATH);
         LonelyOnlyDriver.findElement(by).click();
         LonelyOnlyDriver.getScreenShot(IMG_STORE_PATH);

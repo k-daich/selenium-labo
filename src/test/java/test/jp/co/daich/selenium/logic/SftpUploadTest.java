@@ -7,7 +7,6 @@ package test.jp.co.daich.selenium.logic;
 
 import java.util.Date;
 import jp.co.daich.constants.ProjectCommon;
-import jp.co.daich.util.file.FolderFactory;
 import jp.co.daich.util.logger.Logger;
 import jp.co.daich.util.sftp.SftpUploader;
 import org.junit.Test;
@@ -29,7 +28,7 @@ public class SftpUploadTest extends TestBase {
         final String user = "jboss";
         final String passwd = "0GchCsumGutS";
         final String uploadFilePath = ProjectCommon.EVI_DIR + "sftpUpload_sample\\test.txt";
-        final String puttingRootPath = "/var/unyo/work/sftp.upload.d/";
+        final String puttingRootPath = "/var/unyo/work/sftp.upload.d/test.txt";
 
         Date startTime = new Date();
 

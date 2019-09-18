@@ -7,6 +7,8 @@ package jp.co.daich.util.sftp;
 
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpException;
+import java.io.File;
+import java.io.IOException;
 import jp.co.daich.util.logger.Logger;
 
 /**
@@ -20,6 +22,7 @@ public class SftpUploader extends SftpCommunicator {
 
     /**
      * Constructor
+     *
      * @param uploadFilePath
      * @param puttingRootPath
      */
@@ -27,7 +30,6 @@ public class SftpUploader extends SftpCommunicator {
         this.uploadFilePath = uploadFilePath;
         this.puttingRootPath = puttingRootPath;
     }
-
 
     /**
      * SCPでのダウロードを実施する
@@ -38,14 +40,24 @@ public class SftpUploader extends SftpCommunicator {
     @SuppressWarnings("unchecked")
     public void action(ChannelSftp channel) {
         try {
-            // get
+            // アップロード先にファイルが既にある場合は上書きしてしまう前にダウンロードする
+            if (SftpUtil.isExist(channel, uploadFilePath)) {
+                // download
+                channel.get(puttingRootPath, uploadFilePath + "ファイルはアップロード先に既に存在していました。内容はこのファイルの中身を参照");
+                // 存在しない旨のコメントファイルを作成する
+            } else {
+                new File(puttingRootPath + "ファイルはアップロード先に存在しませんでした");
+            }
+            // upload
             channel.put(uploadFilePath, puttingRootPath);
             Logger.printInfo("---- upload success");
         } catch (SftpException ex) {
             // ファイルが存在しないとき
             throw new RuntimeException("アップロードに失敗した \n"
                     + "uploadFilePath : " + uploadFilePath + "\n"
-                    + ex.getMessage());
+                    + ex.getMessage(),
+                    ex);
         }
     }
+
 }

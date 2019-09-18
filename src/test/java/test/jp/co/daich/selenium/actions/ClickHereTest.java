@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package test.jp.co.daich.selenium.actions;
 
 import jp.co.daich.command.ClickHere;
+import jp.co.daich.util.logger.Logger;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import test.jp.co.daich.base.TestBase;
@@ -22,8 +18,15 @@ public class ClickHereTest extends TestBase{
     @Test
     @Override
     public void doTest() {
+        Logger.printInfo("ウインドウを操作する");
+        ClickHere.execute(By.linkText("ウインドウを操作する"));
+        Logger.printInfo("トップページ");
         ClickHere.execute(By.linkText("トップページ"));
-        ClickHere.execute(By.linkText("本サイトについて"));
+        Logger.printInfo("Selenium Java(ABC順)");
         ClickHere.execute(By.linkText("Selenium Java(ABC順)"));
+        Logger.printInfo("トップページ");
+        ClickHere.execute(By.linkText("トップページ"));
+        Logger.printInfo("本サイトについて");
+        ClickHere.execute(By.linkText("本サイトについて"));
     }
 }

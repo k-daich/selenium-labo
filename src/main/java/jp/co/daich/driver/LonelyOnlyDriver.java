@@ -154,6 +154,14 @@ public class LonelyOnlyDriver {
     }
 
     /**
+     * ファイルのインデックスを返す
+     * @return fileIndex
+     */
+    public static int getFileIndex() {
+        return fileSeq;
+    }
+
+    /**
      * unregist EventListener
      *
      * @param eventListener
