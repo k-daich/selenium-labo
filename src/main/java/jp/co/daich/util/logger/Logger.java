@@ -19,6 +19,6 @@ public class Logger {
      * @param message
      */
     public static void printInfo(String message) {
-        logger.severe(message);
+        logger.severe("[" + Thread.currentThread().getStackTrace()[1].getClassName() + "]" + message);
     }
 }

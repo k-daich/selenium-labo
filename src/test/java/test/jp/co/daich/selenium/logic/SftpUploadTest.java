@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package test.jp.co.daich.selenium.logic;
 
 import java.util.Date;
@@ -24,11 +19,12 @@ public class SftpUploadTest extends TestBase {
     @Test
     @Override
     public void doTest() {
-        final String hostname = "133.167.76.175";
+        final String hostname = "XXX.XXX.XXX.XXX";
         final String user = "jboss";
-        final String passwd = "0GchCsumGutS";
-        final String uploadFilePath = ProjectCommon.EVI_DIR + "sftpUpload_sample\\test.txt";
-        final String puttingRootPath = "/var/unyo/work/sftp.upload.d/test.txt";
+        final String passwd = "xxxxxxxxxxxxxxxxxxx";
+        final String fileName = "test2.txt";
+        final String uploadFilePath = ProjectCommon.EVI_DIR + "sftpUpload_sample\\" + fileName;
+        final String puttingRootPath = "/var/unyo/work/sftp.upload.d/" + fileName;
 
         Date startTime = new Date();
 

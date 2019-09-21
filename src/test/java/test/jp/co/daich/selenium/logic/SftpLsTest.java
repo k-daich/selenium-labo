@@ -5,11 +5,10 @@
  */
 package test.jp.co.daich.selenium.logic;
 
-import java.util.Date;
 import jp.co.daich.constants.ProjectCommon;
+import jp.co.daich.util.file.FileWriterCustom;
 import jp.co.daich.util.file.FolderFactory;
-import jp.co.daich.util.logger.Logger;
-import jp.co.daich.util.sftp.SftpDownloader;
+import jp.co.daich.util.sftp.SftpLs;
 import org.junit.Test;
 import test.jp.co.daich.base.TestBase;
 
@@ -17,9 +16,9 @@ import test.jp.co.daich.base.TestBase;
  *
  * @author USER
  */
-public class SftpDownloadTest extends TestBase {
+public class SftpLsTest extends TestBase {
 
-    public SftpDownloadTest() {
+    public SftpLsTest() {
     }
 
     @Test
@@ -28,20 +27,16 @@ public class SftpDownloadTest extends TestBase {
         final String hostname = "XXX.XXX.XXX.XXX";
         final String user = "jboss";
         final String passwd = "xxxxxxxxxxxxxxxxxxx";
-        final String targetRootPath = "/var/unyo/work/sftp.download.d/";
-        final String puttingRootPath = ProjectCommon.EVI_DIR + "sftpDownload" + ProjectCommon.DATE_TEXT;
+        String lsTargetPath = "/var/unyo/work/sftp.download.d/";
+        final String puttingRootPath = ProjectCommon.EVI_DIR + "sftpLs" + ProjectCommon.DATE_TEXT;
 
         // エビデンスフォルダを作成する
         FolderFactory.mkdir(puttingRootPath);
 
-        Date startTime = new Date();
+        SftpLs sftpLs = new SftpLs(lsTargetPath);
+        sftpLs.communicate(hostname, user, passwd);
 
-        // ダウンロードを実施
-        new SftpDownloader(targetRootPath, puttingRootPath).communicate(hostname, user, passwd);
-
-        Date endTime = new Date();
-        Logger.printInfo("ダウンロード時間(ミリ秒) : " + (endTime.getTime() - startTime.getTime()));
-
+        FileWriterCustom.write(puttingRootPath + "\\result.txt" , sftpLs.getResult());
     }
 
 }

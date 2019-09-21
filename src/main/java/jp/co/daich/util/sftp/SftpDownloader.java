@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jp.co.daich.util.sftp;
 
 import com.jcraft.jsch.ChannelSftp;
@@ -63,8 +58,8 @@ public class SftpDownloader extends SftpCommunicator {
      * @throws SftpException
      */
     @SuppressWarnings("unchecked")
-    private void recursiveFolderDownload(ChannelSftp channelSftp, String sourcePath, String destinationPath) throws SftpException {
-        Vector<ChannelSftp.LsEntry> fileAndFolderList = channelSftp.ls(sourcePath);
+    private void recursiveFolderDownload(ChannelSftp channel, String sourcePath, String destinationPath) throws SftpException {
+        Vector<ChannelSftp.LsEntry> fileAndFolderList = channel.ls(sourcePath);
 
         // Iterate through list of folder content
         for (ChannelSftp.LsEntry item : fileAndFolderList) {
@@ -76,7 +71,7 @@ public class SftpDownloader extends SftpCommunicator {
                     // Download only if changed later.
 
                     new File(destinationPath + WINDOWS.FILE_SEPARATOR + item.getFilename());
-                    channelSftp.get(
+                    channel.get(
                             sourcePath + LINUX.FILE_SEPARATOR + item.getFilename(),
                             destinationPath + WINDOWS.FILE_SEPARATOR + item.getFilename());
                     // Download file from source (source filename, destination filename).
@@ -85,7 +80,7 @@ public class SftpDownloader extends SftpCommunicator {
                 new File(destinationPath + WINDOWS.FILE_SEPARATOR + item.getFilename()).mkdirs();
                 // Empty folder copy.
                 recursiveFolderDownload(
-                        channelSftp,
+                        channel,
                         sourcePath + LINUX.FILE_SEPARATOR + item.getFilename(),
                         destinationPath + WINDOWS.FILE_SEPARATOR + item.getFilename());
                 // Enter found folder on server to read its contents and create locally.

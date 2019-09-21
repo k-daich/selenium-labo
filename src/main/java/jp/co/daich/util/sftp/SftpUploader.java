@@ -7,8 +7,9 @@ package jp.co.daich.util.sftp;
 
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpException;
-import java.io.File;
-import java.io.IOException;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import jp.co.daich.util.file.FileWriterCustom;
 import jp.co.daich.util.logger.Logger;
 
 /**
@@ -41,16 +42,22 @@ public class SftpUploader extends SftpCommunicator {
     public void action(ChannelSftp channel) {
         try {
             // アップロード先にファイルが既にある場合は上書きしてしまう前にダウンロードする
-            if (SftpUtil.isExist(channel, uploadFilePath)) {
+            if (SftpUtil.isExist(channel, puttingRootPath)) {
                 // download
-                channel.get(puttingRootPath, uploadFilePath + "ファイルはアップロード先に既に存在していました。内容はこのファイルの中身を参照");
-                // 存在しない旨のコメントファイルを作成する
+                channel.get(puttingRootPath, uploadFilePath + "__before.txt");
+                Logger.printInfo("---- pre download : " + uploadFilePath + "__before.txt");
             } else {
-                new File(puttingRootPath + "ファイルはアップロード先に存在しませんでした");
+                // 存在しない旨のコメントファイルを作成する
+                FileWriterCustom.createNewEmptyFile(uploadFilePath + "__before_notExist");
+                Logger.printInfo("---- not exist , create file : " + uploadFilePath + "__before_notExist.txt");
             }
             // upload
             channel.put(uploadFilePath, puttingRootPath);
-            Logger.printInfo("---- upload success");
+            channel.setMtime(puttingRootPath, (int) TimeUnit.MILLISECONDS.toSeconds((new Date()).getTime()));
+            Logger.printInfo("---- upload success\n"
+            + channel.ls(puttingRootPath).toString());
+
+            FileWriterCustom.copy(uploadFilePath, uploadFilePath + "_after.txt");
         } catch (SftpException ex) {
             // ファイルが存在しないとき
             throw new RuntimeException("アップロードに失敗した \n"
