@@ -10,17 +10,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Date;
 import jp.co.daich.constants.properNoun.WINDOWS;
+import jp.co.daich.robot.RobotAction;
 import jp.co.daich.util.file.image.ClickHereImageProcessor;
 import jp.co.daich.util.logger.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -55,6 +60,10 @@ public class LonelyOnlyDriver {
      * @return chromeDriver
      */
     private static WebDriver launchChromeDriver() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-infobars");
+        options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+        options.setExperimentalOption("useAutomationExtension", false);
 //        System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
         WebDriverManager.chromedriver().setup();
         return new ChromeDriver();
@@ -107,7 +116,7 @@ public class LonelyOnlyDriver {
     public static void quit() {
         driver.quit();
     }
-    
+
     /**
      * get WebDriver
      *
@@ -138,10 +147,11 @@ public class LonelyOnlyDriver {
      * execute Javascript
      *
      * @param script
+     * @return javascript result
      */
-    public static void executeJavaScript(String script) {
+    public static Object executeJavaScript(String script) {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
-        javascriptExecutor.executeScript(script);
+        return javascriptExecutor.executeScript(script);
     }
 
     /**
@@ -155,6 +165,7 @@ public class LonelyOnlyDriver {
 
     /**
      * ファイルのインデックスを返す
+     *
      * @return fileIndex
      */
     public static int getFileIndex() {
@@ -198,6 +209,25 @@ public class LonelyOnlyDriver {
                 clickeEle.getLocation().getY() + clickeEle.getRect().getHeight() / 2);
     }
 
+    public static void getClickHereScreenShot2(WebElement clickeEle, String imgStorePath) {
+        // webdriverで撮った一時スクショファイル
+        File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        Date date = new Date();
+        // スクリーンショット出力先
+        String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
+
+        // スクリーンショット生成
+        RobotAction.takeBrowserPicture(outputPath);
+        Logger.printInfo("store screens shot at : " + outputPath);
+
+        Logger.printInfo("click here target center position X : " + clickeEle.getRect().getWidth() / 2);
+        Logger.printInfo("click here target center position Y : " + clickeEle.getRect().getHeight() / 2);
+        // クリックヒア画像を生成
+        ClickHereImageProcessor.composit(outputPath,
+                clickeEle.getLocation().getX() + clickeEle.getRect().getWidth() / 2,
+                clickeEle.getLocation().getY() + clickeEle.getRect().getHeight() / 2 + getBrowserHeadHeight());
+    }
+
     public static void getScreenShot(String imgStorePath) {
         // webdriverで撮った一時スクショファイル
         File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -219,4 +249,55 @@ public class LonelyOnlyDriver {
             Logger.printInfo(ex.getMessage());
         }
     }
+
+    /**
+     * get browser head height
+     * @return browser head height
+     */
+    public static int getBrowserHeadHeight() {
+        int innerHeight;
+        innerHeight = Integer.parseInt(executeJavaScript("return window.innerHeight;").toString());
+        return getBrowserSize().getHeight() - innerHeight;
+    }
+
+    /**
+     * scroll by javascript
+     *
+     * @param offset
+     */
+    public static void scroll(int offset) {
+        executeJavaScript("window.scrollTo(0, window.pageYOffset + " + offset + ");");
+    }
+
+    /**
+     * return Browser leftTop position
+     * @return position
+     */
+    public static Point getBrowserPosition() {
+        return driver.manage().window().getPosition();
+    }
+
+    /**
+     * return Browser Size
+     * @return size
+     */
+    public static Dimension getBrowserSize() {
+        return driver.manage().window().getSize();
+    }
+
+    /**
+     * return Browser Height
+     * @return browser height
+     */
+    public static int getBrowserHeight() {
+        return driver.manage().window().getSize().getHeight();
+    }
+
+    /**
+     * return Browser Width
+     */
+    public static int getBrowserWidth() {
+        return driver.manage().window().getSize().getWidth();
+    }
+
 }

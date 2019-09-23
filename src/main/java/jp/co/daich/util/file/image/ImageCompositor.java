@@ -25,6 +25,8 @@ public class ImageCompositor {
         // none
     }
 
+    private static int fileSeq = 0;
+
     /**
      *
      * @param baseImagePath
@@ -39,7 +41,12 @@ public class ImageCompositor {
         try {
             graphics = bufferedImage_base.getGraphics();
             // 合成処理を実施する
-            graphics.drawImage(bufferedImage_adding, locationX, locationY, null);
+            graphics.drawImage(
+                    bufferedImage_adding,
+                    locationX,
+                    locationY,
+                    null);
+
             Logger.printInfo("actual draw X at : " + locationX);
             Logger.printInfo("actual draw Y at : " + locationY);
         } finally {
@@ -48,7 +55,7 @@ public class ImageCompositor {
 
         // 合成したイメージをファイルに書き出す
         try {
-            ImageIO.write(bufferedImage_base, "png", new File(baseImagePath + "_compo.png"));
+            ImageIO.write(bufferedImage_base, "png", new File(baseImagePath + fileSeq++ + "_compo.png"));
         } catch (IOException ex) {
             Logger.printInfo(ex.getMessage());
         }

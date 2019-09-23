@@ -134,7 +134,12 @@ public class MyActions extends LonelyOnlyDriver {
         acts.click(wEle);
     }
 
+    /**
+     * return Action
+     * @return 
+     */
     public static Actions getActions() {
         return acts;
     }
+
 }

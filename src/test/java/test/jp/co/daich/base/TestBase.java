@@ -37,6 +37,8 @@ public abstract class TestBase {
     @Before
     public void setUp() {
         Logger.printInfo("☆☆☆" + this.getClass().getSimpleName() + "☆☆☆");
+//        LonelyOnlyDriver.get("https://caniuse.com/");
+        
         LonelyOnlyDriver.get("https://www.seleniumqref.com/api/java/element_infoget/Java_getLocation.html");
     }
 

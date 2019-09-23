@@ -5,6 +5,7 @@
  */
 package jp.co.daich.util.file.image;
 
+import jp.co.daich.util.Calculator;
 import jp.co.daich.util.logger.Logger;
 
 /**
@@ -21,8 +22,16 @@ public class ClickHereImageProcessor {
         Logger.printInfo("adding height : " + ADDING_IMAGE_HEIGHT / 2);
         ImageCompositor.composit(baseImagePath,
                 "./target/classes/image/clickHere.png",
-                locationX + ADDING_IMAGE_WIDTH / 2,
-                locationY + ADDING_IMAGE_HEIGHT / 2);
+                // tried 1 : 1.2706
+                // tried 2 : 1.2519
+                Calculator.multiply(locationX, 1.2706) + ADDING_IMAGE_WIDTH / 2,
+                Calculator.multiply(locationY, 1.2706) + ADDING_IMAGE_HEIGHT / 2);
+        ImageCompositor.composit(baseImagePath,
+                "./target/classes/image/clickHere.png",
+                // tried 1 : 1.2706
+                // tried 2 : 1.2519
+                Calculator.multiply(locationX, 1.2519) + ADDING_IMAGE_WIDTH / 2,
+                Calculator.multiply(locationY, 1.2519) + ADDING_IMAGE_HEIGHT / 2);
     }
 
 }

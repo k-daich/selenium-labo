@@ -5,10 +5,19 @@
  */
 package jp.co.daich.robot;
 
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.util.Calculator;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 
 /**
  *
@@ -96,6 +105,7 @@ public class RobotAction {
 
     /**
      * コピペを利用して文字列を送る
+     *
      * @param text
      */
     public static void sendKeysByKoPiPe(String text) {
@@ -108,4 +118,31 @@ public class RobotAction {
         RobotAction.keyRelease(KeyEvent.VK_V);
         RobotAction.keyRelease(KeyEvent.VK_CONTROL);
     }
+
+    /**
+     * take picture for browser
+     *
+     * @param imagePath
+     */
+    public static void takeBrowserPicture(String imagePath) {
+        Point pos = LonelyOnlyDriver.getBrowserPosition();
+        Dimension size = LonelyOnlyDriver.getBrowserSize();
+
+        // キャプチャの範囲
+        Rectangle bounds = new Rectangle(
+                pos.getX(),
+                pos.getY(),
+                Calculator.multiply(size.getWidth(), 1.25),
+                Calculator.multiply(size.getHeight(), 1.25));
+
+        try {
+            BufferedImage image = LonelyRobot.getInstance().createScreenCapture(bounds);
+            // イメージファイル出力処理
+            ImageIO.write(image, "png", new File(imagePath));
+        } catch (IOException ex) {
+            throw new RuntimeException("Robotのスクショ作成処理が失敗",
+                    ex);
+        }
+    }
+
 }

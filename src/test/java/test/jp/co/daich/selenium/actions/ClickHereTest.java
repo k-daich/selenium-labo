@@ -20,6 +20,7 @@ public class ClickHereTest extends TestBase{
     public void doTest() {
         Logger.printInfo("ウインドウを操作する");
         ClickHere.execute(By.linkText("ウインドウを操作する"));
+//        ClickHere.execute(By.linkText("Flexbox"));
         Logger.printInfo("トップページ");
         ClickHere.execute(By.linkText("トップページ"));
         Logger.printInfo("Selenium Java(ABC順)");
