@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
 import jp.co.daich.constants.properNoun.WINDOWS;
+import jp.co.daich.driver.develop.util.WebElementParser;
 import jp.co.daich.robot.RobotAction;
+import jp.co.daich.util.MyStringUtil;
 import jp.co.daich.util.file.image.ClickHereImageProcessor;
 import jp.co.daich.util.logger.Logger;
 import org.openqa.selenium.By;
@@ -228,6 +230,51 @@ public class LonelyOnlyDriver {
                 clickeEle.getLocation().getY() + clickeEle.getRect().getHeight() / 2 + getBrowserHeadHeight());
     }
 
+    public static void getClickHereScreenShotGettingLocationByJavascript(WebElement clickeEle, String imgStorePath) {
+        int indexOfTagsBySameNameFromRoot = WebElementParser.getIndexOfByTagNameFromRoot(clickeEle);
+        int locationX = Integer.parseInt(
+                MyStringUtil.subString(
+                        executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().left;").toString(),
+                        '.'));
+        int locationY = Integer.parseInt(
+                MyStringUtil.subString(
+                        executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().top;").toString(),
+                        '.'));
+        int eleHeight = Integer.parseInt(
+                MyStringUtil.subString(
+                        executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().width;").toString(),
+                        '.'));
+        int eleWidth = Integer.parseInt(
+                MyStringUtil.subString(
+                        executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().height;").toString(),
+                        '.'));
+        // webdriverで撮った一時スクショファイル
+        File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        Date date = new Date();
+        // スクリーンショット出力先
+        String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
+
+        // 入力/出力ストリーム開始
+        try (
+                FileInputStream inStream = new FileInputStream(sFile);
+                FileOutputStream outStream = new FileOutputStream(outputPath);) {
+            int readBytes;
+            // 入力ストリームの読み込んだバイト数だけファイルに書き出す
+            while ((readBytes = inStream.read()) != -1) {
+                outStream.write(readBytes);
+            }
+            Logger.printInfo("store screens shot at : " + outputPath);
+        } catch (IOException ex) {
+            Logger.printInfo(ex.getMessage());
+        }
+        Logger.printInfo("click here target center position X getting By Javascript : " + eleWidth / 2);
+        Logger.printInfo("click here target center position Y getting By Javascript : " + eleHeight / 2);
+        // クリックヒア画像を生成
+        ClickHereImageProcessor.composit(outputPath,
+                locationX + eleWidth / 2,
+                locationY + eleHeight / 2);
+    }
+
     public static void getScreenShot(String imgStorePath) {
         // webdriverで撮った一時スクショファイル
         File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -252,6 +299,7 @@ public class LonelyOnlyDriver {
 
     /**
      * get browser head height
+     *
      * @return browser head height
      */
     public static int getBrowserHeadHeight() {
@@ -271,6 +319,7 @@ public class LonelyOnlyDriver {
 
     /**
      * return Browser leftTop position
+     *
      * @return position
      */
     public static Point getBrowserPosition() {
@@ -279,6 +328,7 @@ public class LonelyOnlyDriver {
 
     /**
      * return Browser Size
+     *
      * @return size
      */
     public static Dimension getBrowserSize() {
@@ -287,6 +337,7 @@ public class LonelyOnlyDriver {
 
     /**
      * return Browser Height
+     *
      * @return browser height
      */
     public static int getBrowserHeight() {

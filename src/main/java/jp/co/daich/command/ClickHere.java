@@ -37,7 +37,8 @@ public class ClickHere {
         Logger.printInfo("create fileNo : " + LonelyOnlyDriver.getFileIndex() + " :: element Location Y is : " + wEle.getLocation().getY());
 
         LonelyOnlyDriver.getClickHereScreenShot(wEle, IMG_STORE_PATH);
-        LonelyOnlyDriver.getClickHereScreenShot2(wEle, IMG_STORE_PATH);
+//        LonelyOnlyDriver.getClickHereScreenShot2(wEle, IMG_STORE_PATH);
+        LonelyOnlyDriver.getClickHereScreenShotGettingLocationByJavascript(wEle, IMG_STORE_PATH);
 
         LonelyOnlyDriver.findElement(by).click();
         LonelyOnlyDriver.getScreenShot(IMG_STORE_PATH);
