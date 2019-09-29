@@ -6,7 +6,7 @@
 package jp.co.daich.util.file.image;
 
 import jp.co.daich.util.Calculator;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 
 /**
  *
@@ -18,8 +18,8 @@ public class ClickHereImageProcessor {
     private static final int ADDING_IMAGE_HEIGHT = 40;
 
     public static void composit(String baseImagePath, int locationX, int locationY) {
-        Logger.printInfo("adding width : " + ADDING_IMAGE_WIDTH / 2);
-        Logger.printInfo("adding height : " + ADDING_IMAGE_HEIGHT / 2);
+        MyLogger.printInfo("adding width : " + ADDING_IMAGE_WIDTH / 2);
+        MyLogger.printInfo("adding height : " + ADDING_IMAGE_HEIGHT / 2);
         ImageCompositor.composit(baseImagePath,
                 "./target/classes/image/clickHere.png",
                 // tried 1 : 1.2706

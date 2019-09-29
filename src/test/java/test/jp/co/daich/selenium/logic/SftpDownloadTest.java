@@ -8,7 +8,7 @@ package test.jp.co.daich.selenium.logic;
 import java.util.Date;
 import jp.co.daich.constants.ProjectCommon;
 import jp.co.daich.util.file.FolderFactory;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import jp.co.daich.util.sftp.SftpDownloader;
 import org.junit.Test;
 import test.jp.co.daich.base.TestBase;
@@ -40,7 +40,7 @@ public class SftpDownloadTest extends TestBase {
         new SftpDownloader(targetRootPath, puttingRootPath).communicate(hostname, user, passwd);
 
         Date endTime = new Date();
-        Logger.printInfo("ダウンロード時間(ミリ秒) : " + (endTime.getTime() - startTime.getTime()));
+        MyLogger.printInfo("ダウンロード時間(ミリ秒) : " + (endTime.getTime() - startTime.getTime()));
 
     }
 

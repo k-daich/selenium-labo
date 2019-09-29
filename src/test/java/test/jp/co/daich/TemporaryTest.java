@@ -7,7 +7,7 @@ package test.jp.co.daich;
 
 import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.driver.develop.util.WebElementParser;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import test.jp.co.daich.base.TestBase;
@@ -27,7 +27,7 @@ public class TemporaryTest extends TestBase {
     @Test
     @Override
     public void doTest() {
-        Logger.printInfo("Result : " +
+        MyLogger.printInfo("Result : " +
                 WebElementParser.getIndexOfByTagNameFromRoot(LonelyOnlyDriver.findElement(By.linkText("ウインドウを操作する")))
         );
     }

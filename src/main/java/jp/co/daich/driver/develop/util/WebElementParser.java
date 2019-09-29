@@ -10,7 +10,7 @@ import java.util.Deque;
 import java.util.List;
 import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.driver.develop.util.xpath.bean.WebElementInfo;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -33,10 +33,10 @@ public class WebElementParser {
         }
         // スタックに格納した内容をデバッグ出力
         _tagStack.forEach((WebElement _we ) -> {
-            Logger.printInfo("print by TagName : " + _we.getTagName());
-            Logger.printInfo("print by Attribute id : " + _we.getAttribute("id"));
-            Logger.printInfo("print by Attribute name : " + _we.getAttribute("name"));
-            Logger.printInfo("print by Attribute class : " + _we.getAttribute("class"));
+            MyLogger.printInfo("print by TagName : " + _we.getTagName());
+            MyLogger.printInfo("print by Attribute id : " + _we.getAttribute("id"));
+            MyLogger.printInfo("print by Attribute name : " + _we.getAttribute("name"));
+            MyLogger.printInfo("print by Attribute class : " + _we.getAttribute("class"));
         });
         return _tagStack;
     }

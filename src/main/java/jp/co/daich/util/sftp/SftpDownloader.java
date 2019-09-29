@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.Vector;
 import jp.co.daich.constants.properNoun.LINUX;
 import jp.co.daich.constants.properNoun.WINDOWS;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 
 /**
  *
@@ -40,7 +40,7 @@ public class SftpDownloader extends SftpCommunicator {
                     channel,
                     targetRootPath + LINUX.FILE_SEPARATOR,
                     puttingRootPath + WINDOWS.FILE_SEPARATOR);
-            Logger.printInfo("---- get success");
+            MyLogger.printInfo("---- get success");
         } catch (SftpException ex) {
             // ファイルが存在しないとき
             throw new RuntimeException("ダウンロードに失敗した \n"

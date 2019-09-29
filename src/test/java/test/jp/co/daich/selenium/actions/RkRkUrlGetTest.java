@@ -7,7 +7,7 @@ package test.jp.co.daich.selenium.actions;
 
 import jp.co.daich.command.RkRkUrlGet;
 import jp.co.daich.driver.LonelyOnlyDriver;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import test.jp.co.daich.base.TestBase;
 
 /**
@@ -22,14 +22,14 @@ public class RkRkUrlGetTest extends TestBase {
         rkrkUrlGet.startListener();
 
         LonelyOnlyDriver.navigateTo("https://caniuse.com/");
-        Logger.printInfo("result RkRkUrlGetTest by MyListener-> " + rkrkUrlGet.getCurrentUrl());
-        Logger.printInfo("result RkRkUrlGetTest by Driver -> " + LonelyOnlyDriver.getCurrentUrl());
+        MyLogger.printInfo("result RkRkUrlGetTest by MyListener-> " + rkrkUrlGet.getCurrentUrl());
+        MyLogger.printInfo("result RkRkUrlGetTest by Driver -> " + LonelyOnlyDriver.getCurrentUrl());
 
         LonelyOnlyDriver.get("https://www.starbucks.co.jp/");
 
         String resultUrl = rkrkUrlGet.stopListener();
-        Logger.printInfo("result RkRkUrlGetTest by MyListener-> " + resultUrl);
-        Logger.printInfo("result RkRkUrlGetTest by Driver -> " + LonelyOnlyDriver.getCurrentUrl());
+        MyLogger.printInfo("result RkRkUrlGetTest by MyListener-> " + resultUrl);
+        MyLogger.printInfo("result RkRkUrlGetTest by Driver -> " + LonelyOnlyDriver.getCurrentUrl());
     }
 
 }

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 
 /**
  *
@@ -29,7 +29,7 @@ public class FolderFactory {
      */
     public static void mkdir(String dirPath) {
         try {
-            Logger.printInfo("mkdir path : " + dirPath);
+            MyLogger.printInfo("mkdir path : " + dirPath);
             Path path1 = Paths.get(dirPath);
             Files.createDirectories(path1);
         } catch (IOException ex) {

@@ -2,7 +2,7 @@ package test.jp.co.daich.selenium.logic;
 
 import java.util.Date;
 import jp.co.daich.constants.ProjectCommon;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import jp.co.daich.util.sftp.SftpUploader;
 import org.junit.Test;
 import test.jp.co.daich.base.TestBase;
@@ -32,7 +32,7 @@ public class SftpUploadTest extends TestBase {
         new SftpUploader(uploadFilePath, puttingRootPath).communicate(hostname, user, passwd);
 
         Date endTime = new Date();
-        Logger.printInfo("アップロード時間(ミリ秒) : " + (endTime.getTime() - startTime.getTime()));
+        MyLogger.printInfo("アップロード時間(ミリ秒) : " + (endTime.getTime() - startTime.getTime()));
 
     }
 

@@ -10,7 +10,7 @@ import com.jcraft.jsch.SftpException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import jp.co.daich.util.file.FileWriterCustom;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 
 /**
  *
@@ -45,16 +45,16 @@ public class SftpUploader extends SftpCommunicator {
             if (SftpUtil.isExist(channel, puttingRootPath)) {
                 // download
                 channel.get(puttingRootPath, uploadFilePath + "__before.txt");
-                Logger.printInfo("---- pre download : " + uploadFilePath + "__before.txt");
+                MyLogger.printInfo("---- pre download : " + uploadFilePath + "__before.txt");
             } else {
                 // 存在しない旨のコメントファイルを作成する
                 FileWriterCustom.createNewEmptyFile(uploadFilePath + "__before_notExist");
-                Logger.printInfo("---- not exist , create file : " + uploadFilePath + "__before_notExist.txt");
+                MyLogger.printInfo("---- not exist , create file : " + uploadFilePath + "__before_notExist.txt");
             }
             // upload
             channel.put(uploadFilePath, puttingRootPath);
             channel.setMtime(puttingRootPath, (int) TimeUnit.MILLISECONDS.toSeconds((new Date()).getTime()));
-            Logger.printInfo("---- upload success\n"
+            MyLogger.printInfo("---- upload success\n"
             + channel.ls(puttingRootPath).toString());
 
             FileWriterCustom.copy(uploadFilePath, uploadFilePath + "_after.txt");

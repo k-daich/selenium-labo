@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jp.co.daich.seanario.finder.ExcelFinder;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import jp.co.daich.seanario.reader.ExcelSeanarioReader;
 
 /**
@@ -32,11 +32,11 @@ public class GetSenarioList {
 
         // ブック単位に繰り返す
         files.forEach((file) -> {
-            Logger.printInfo("file Name : " + file.getName());
+            MyLogger.printInfo("file Name : " + file.getName());
             excelBooks.put(file.getName(), ExcelSeanarioReader.read(file));
             // シート単位に繰り返す
             ExcelSeanarioReader.read(file).forEach((sheetName) -> {
-                Logger.printInfo("sheet Names : " + sheetName);
+                MyLogger.printInfo("sheet Names : " + sheetName);
             });
         });
 

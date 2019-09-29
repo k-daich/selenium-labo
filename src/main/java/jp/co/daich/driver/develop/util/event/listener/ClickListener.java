@@ -5,7 +5,7 @@
  */
 package jp.co.daich.driver.develop.util.event.listener;
 
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
@@ -21,14 +21,14 @@ public class ClickListener extends AbstractWebDriverEventListener {
     @Override
     //要素をクリックする直前の処理
     public void beforeClickOn(WebElement element, WebDriver driver) {
-        Logger.printInfo("beforeClickOn:" + element.getTagName());
+        MyLogger.printInfo("beforeClickOn:" + element.getTagName());
         clickedWebElement = element;
     }
 
     @Override
     //要素をクリックした直後の処理
     public void afterClickOn(WebElement element, WebDriver driver) {
-        Logger.printInfo("afterClickOn:" + element.getTagName());
+        MyLogger.printInfo("afterClickOn:" + element.getTagName());
     }
 
     /**

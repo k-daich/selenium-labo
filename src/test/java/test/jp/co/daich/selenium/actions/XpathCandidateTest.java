@@ -8,7 +8,7 @@ package test.jp.co.daich.selenium.actions;
 import java.util.List;
 import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.driver.develop.util.WebElementParser;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import jp.co.daich.driver.develop.util.xpath.candidate.FullPath;
 import jp.co.daich.driver.develop.util.xpath.candidate.base.CandidateBase;
 import org.openqa.selenium.By;
@@ -31,7 +31,7 @@ public class XpathCandidateTest extends TestBase {
                 WebElementParser.getTagHierarchy(element));
 
         xpaths.forEach((xpath) -> {
-            Logger.printInfo("print by xpath : " + xpath);
+            MyLogger.printInfo("print by xpath : " + xpath);
         });
     }
 }

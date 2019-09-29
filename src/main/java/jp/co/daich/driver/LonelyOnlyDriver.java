@@ -17,7 +17,7 @@ import jp.co.daich.driver.develop.util.WebElementParser;
 import jp.co.daich.robot.RobotAction;
 import jp.co.daich.util.MyStringUtil;
 import jp.co.daich.util.file.image.ClickHereImageProcessor;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -152,6 +152,7 @@ public class LonelyOnlyDriver {
      * @return javascript result
      */
     public static Object executeJavaScript(String script) {
+        MyLogger.printInfo("[Execute Javascript]" + script);
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         return javascriptExecutor.executeScript(script);
     }
@@ -186,7 +187,6 @@ public class LonelyOnlyDriver {
     public static void getClickHereScreenShot(WebElement clickeEle, String imgStorePath) {
         // webdriverで撮った一時スクショファイル
         File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        Date date = new Date();
         // スクリーンショット出力先
         String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
 
@@ -199,12 +199,14 @@ public class LonelyOnlyDriver {
             while ((readBytes = inStream.read()) != -1) {
                 outStream.write(readBytes);
             }
-            Logger.printInfo("store screens shot at : " + outputPath);
+            MyLogger.printInfo("store screens shot at : " + outputPath);
         } catch (IOException ex) {
-            Logger.printInfo(ex.getMessage());
+            MyLogger.printInfo(ex.getMessage());
         }
-        Logger.printInfo("click here target center position X : " + clickeEle.getRect().getWidth() / 2);
-        Logger.printInfo("click here target center position Y : " + clickeEle.getRect().getHeight() / 2);
+        MyLogger.printInfo("click here target location X : " + clickeEle.getLocation().getX());
+        MyLogger.printInfo("click here target location X : " + clickeEle.getLocation().getY());
+        MyLogger.printInfo("click here target center position X : " + clickeEle.getRect().getWidth() / 2);
+        MyLogger.printInfo("click here target center position Y : " + clickeEle.getRect().getHeight() / 2);
         // クリックヒア画像を生成
         ClickHereImageProcessor.composit(outputPath,
                 clickeEle.getLocation().getX() + clickeEle.getRect().getWidth() / 2,
@@ -214,16 +216,15 @@ public class LonelyOnlyDriver {
     public static void getClickHereScreenShot2(WebElement clickeEle, String imgStorePath) {
         // webdriverで撮った一時スクショファイル
         File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        Date date = new Date();
         // スクリーンショット出力先
         String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
 
         // スクリーンショット生成
         RobotAction.takeBrowserPicture(outputPath);
-        Logger.printInfo("store screens shot at : " + outputPath);
+        MyLogger.printInfo("store screens shot at : " + outputPath);
 
-        Logger.printInfo("click here target center position X : " + clickeEle.getRect().getWidth() / 2);
-        Logger.printInfo("click here target center position Y : " + clickeEle.getRect().getHeight() / 2);
+        MyLogger.printInfo("click here target center position X : " + clickeEle.getRect().getWidth() / 2);
+        MyLogger.printInfo("click here target center position Y : " + clickeEle.getRect().getHeight() / 2);
         // クリックヒア画像を生成
         ClickHereImageProcessor.composit(outputPath,
                 clickeEle.getLocation().getX() + clickeEle.getRect().getWidth() / 2,
@@ -232,6 +233,9 @@ public class LonelyOnlyDriver {
 
     public static void getClickHereScreenShotGettingLocationByJavascript(WebElement clickeEle, String imgStorePath) {
         int indexOfTagsBySameNameFromRoot = WebElementParser.getIndexOfByTagNameFromRoot(clickeEle);
+
+        MyLogger.printInfo("[click href] " + executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getAttribute('href');").toString());
+
         int locationX = Integer.parseInt(
                 MyStringUtil.subString(
                         executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().left;").toString(),
@@ -240,11 +244,11 @@ public class LonelyOnlyDriver {
                 MyStringUtil.subString(
                         executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().top;").toString(),
                         '.'));
-        int eleHeight = Integer.parseInt(
+        int eleWidth = Integer.parseInt(
                 MyStringUtil.subString(
                         executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().width;").toString(),
                         '.'));
-        int eleWidth = Integer.parseInt(
+        int eleHeight = Integer.parseInt(
                 MyStringUtil.subString(
                         executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().height;").toString(),
                         '.'));
@@ -263,16 +267,68 @@ public class LonelyOnlyDriver {
             while ((readBytes = inStream.read()) != -1) {
                 outStream.write(readBytes);
             }
-            Logger.printInfo("store screens shot at : " + outputPath);
+            MyLogger.printInfo("store screens shot at : " + outputPath);
         } catch (IOException ex) {
-            Logger.printInfo(ex.getMessage());
+            MyLogger.printInfo(ex.getMessage());
         }
-        Logger.printInfo("click here target center position X getting By Javascript : " + eleWidth / 2);
-        Logger.printInfo("click here target center position Y getting By Javascript : " + eleHeight / 2);
+        MyLogger.printInfo("click here target location X getting By Javascript : " + locationX / 2);
+        MyLogger.printInfo("click here target location Y getting By Javascript : " + locationY / 2);
+        MyLogger.printInfo("click here target center position X getting By Javascript : " + eleWidth / 2);
+        MyLogger.printInfo("click here target center position Y getting By Javascript : " + eleHeight / 2);
         // クリックヒア画像を生成
         ClickHereImageProcessor.composit(outputPath,
                 locationX + eleWidth / 2,
                 locationY + eleHeight / 2);
+    }
+
+    public static void getClickHereScreenShotAddingPngByJavascript(WebElement clickeEle, String imgStorePath) {
+        // webdriverで撮った一時スクショファイル
+        File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        // スクリーンショット出力先
+        String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
+
+        // 入力/出力ストリーム開始
+        try (
+                FileInputStream inStream = new FileInputStream(sFile);
+                FileOutputStream outStream = new FileOutputStream(outputPath);) {
+            int readBytes;
+            // 入力ストリームの読み込んだバイト数だけファイルに書き出す
+            while ((readBytes = inStream.read()) != -1) {
+                outStream.write(readBytes);
+            }
+            MyLogger.printInfo("store screens shot at : " + outputPath);
+        } catch (IOException ex) {
+            MyLogger.printInfo(ex.getMessage());
+        }
+        MyLogger.printInfo("click here target location X : " + clickeEle.getLocation().getX());
+        MyLogger.printInfo("click here target location X : " + clickeEle.getLocation().getY());
+        MyLogger.printInfo("click here target center position X : " + clickeEle.getRect().getWidth() / 2);
+        MyLogger.printInfo("click here target center position Y : " + clickeEle.getRect().getHeight() / 2);
+        executeJavaScript("var img = document.createElement('img');\n"
+                + "img.style.position = 'absolute';\n"
+                + "img.style.left = '" + clickeEle.getLocation().getX() + "px';\n"
+                + "img.style.top = '" + clickeEle.getLocation().getY() + "px';\n"
+                + "img.src = '\\images\\Title_logo.png';\n"
+                + "\n"
+                + "document.getElementsByTagName('html')[0].appendChild(img);");
+        // webdriverで撮った一時スクショファイル
+        sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        // スクリーンショット出力先
+        outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq + "_output2_addedPngByJs.png";
+
+        // 入力/出力ストリーム開始
+        try (
+                FileInputStream inStream = new FileInputStream(sFile);
+                FileOutputStream outStream = new FileOutputStream(outputPath);) {
+            int readBytes;
+            // 入力ストリームの読み込んだバイト数だけファイルに書き出す
+            while ((readBytes = inStream.read()) != -1) {
+                outStream.write(readBytes);
+            }
+            MyLogger.printInfo("store screens shot at : " + outputPath);
+        } catch (IOException ex) {
+            MyLogger.printInfo(ex.getMessage());
+        }
     }
 
     public static void getScreenShot(String imgStorePath) {
@@ -291,9 +347,9 @@ public class LonelyOnlyDriver {
             while ((readBytes = inStream.read()) != -1) {
                 outStream.write(readBytes);
             }
-            Logger.printInfo("store screens shot at : " + outputPath);
+            MyLogger.printInfo("store screens shot at : " + outputPath);
         } catch (IOException ex) {
-            Logger.printInfo(ex.getMessage());
+            MyLogger.printInfo(ex.getMessage());
         }
     }
 

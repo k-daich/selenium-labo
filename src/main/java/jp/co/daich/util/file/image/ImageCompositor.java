@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 
 /**
  *
@@ -47,8 +47,8 @@ public class ImageCompositor {
                     locationY,
                     null);
 
-            Logger.printInfo("actual draw X at : " + locationX);
-            Logger.printInfo("actual draw Y at : " + locationY);
+            MyLogger.printInfo("actual draw X at : " + locationX);
+            MyLogger.printInfo("actual draw Y at : " + locationY);
         } finally {
             graphics.dispose();
         }
@@ -57,7 +57,7 @@ public class ImageCompositor {
         try {
             ImageIO.write(bufferedImage_base, "png", new File(baseImagePath + fileSeq++ + "_compo.png"));
         } catch (IOException ex) {
-            Logger.printInfo(ex.getMessage());
+            MyLogger.printInfo(ex.getMessage());
         }
     }
 
@@ -70,7 +70,7 @@ public class ImageCompositor {
         try {
             return ImageIO.read(new File(path));
         } catch (IOException ex) {
-            Logger.printInfo(ex.getMessage());
+            MyLogger.printInfo(ex.getMessage());
         }
         throw new RuntimeException("ファイル合成時に元となるファイルが存在せずエラー。 failePath : " + path);
     }

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 
 /**
  *
@@ -46,9 +46,9 @@ public class FileWriterCustom {
         File file = new File(filePath);
         try {
             if (file.createNewFile()) {
-                Logger.printInfo("--- create file success : " + filePath);
+                MyLogger.printInfo("--- create file success : " + filePath);
             } else {
-                Logger.printInfo("--- create file failed : " + filePath);
+                MyLogger.printInfo("--- create file failed : " + filePath);
             }
         } catch (IOException ex) {
             throw new RuntimeException("空ファイルの作成に失敗しました : " + filePath,
@@ -67,7 +67,7 @@ public class FileWriterCustom {
             Path targetPath = Paths.get(dest);
             Files.copy(sourcePath, targetPath);
 
-            Logger.printInfo("コピーが成功しました");
+            MyLogger.printInfo("コピーが成功しました");
 
         } catch (IOException ex) {
             throw new RuntimeException("コピーに失敗しました \n source " + src

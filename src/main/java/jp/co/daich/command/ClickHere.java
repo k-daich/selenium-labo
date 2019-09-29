@@ -8,7 +8,7 @@ package jp.co.daich.command;
 import jp.co.daich.constants.ProjectCommon;
 import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.util.file.FolderFactory;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -28,20 +28,19 @@ public class ClickHere {
     }
 
     public static void execute(By by) {
-        Logger.printInfo("☆☆☆☆☆ClickHere Start☆☆☆☆☆");
+        MyLogger.printInfo("☆☆☆☆☆ClickHere Start☆☆☆☆☆");
         // 格納先ディレクトリを作成する
         FolderFactory.mkdir(IMG_STORE_PATH);
 
         WebElement wEle = LonelyOnlyDriver.findElement(by);
-        Logger.printInfo("create fileNo : " + LonelyOnlyDriver.getFileIndex() + " :: element Location X is : " + wEle.getLocation().getX());
-        Logger.printInfo("create fileNo : " + LonelyOnlyDriver.getFileIndex() + " :: element Location Y is : " + wEle.getLocation().getY());
 
-        LonelyOnlyDriver.getClickHereScreenShot(wEle, IMG_STORE_PATH);
+//        LonelyOnlyDriver.getClickHereScreenShot(wEle, IMG_STORE_PATH);
 //        LonelyOnlyDriver.getClickHereScreenShot2(wEle, IMG_STORE_PATH);
-        LonelyOnlyDriver.getClickHereScreenShotGettingLocationByJavascript(wEle, IMG_STORE_PATH);
+//        LonelyOnlyDriver.getClickHereScreenShotGettingLocationByJavascript(wEle, IMG_STORE_PATH);
+        LonelyOnlyDriver.getClickHereScreenShotAddingPngByJavascript(wEle, IMG_STORE_PATH);
 
         LonelyOnlyDriver.findElement(by).click();
         LonelyOnlyDriver.getScreenShot(IMG_STORE_PATH);
-        Logger.printInfo("★★★★★ClickHere Start★★★★★");
+        MyLogger.printInfo("★★★★★ClickHere End★★★★★");
     }
 }

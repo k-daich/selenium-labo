@@ -12,7 +12,7 @@ import jp.co.daich.constants.ProjectCommon;
 import jp.co.daich.constants.properNoun.WINDOWS;
 import jp.co.daich.util.file.FileWriterCustom;
 import jp.co.daich.util.file.FolderFactory;
-import jp.co.daich.util.logger.Logger;
+import jp.co.daich.util.logger.MyLogger;
 import org.junit.Test;
 import test.jp.co.daich.base.TestBase;
 
@@ -37,11 +37,11 @@ public class GetSenarioListTest extends TestBase {
         Map<String, List<String>> excelBooks = GetSenarioList.execute("C:\\netbeans\\projects\\fg-bookie\\designDoc\\01_DB設計\\entity");
         // ブック単位に繰り返し
         for (String bookName : excelBooks.keySet()) {
-            Logger.printInfo("FileWrite for bookName -> " + bookName);
+            MyLogger.printInfo("FileWrite for bookName -> " + bookName);
             sBuilder.append("[Book]  ").append(bookName).append("\n");
             // シート単位に繰り返し
             for (String sheetName : excelBooks.get(bookName)) {
-                Logger.printInfo("FileWrite for sheetName -> " + bookName);
+                MyLogger.printInfo("FileWrite for sheetName -> " + bookName);
                 sBuilder.append("\t").append(listIndex++).append("\t").append(sheetName).append("\n");
             }
         }
