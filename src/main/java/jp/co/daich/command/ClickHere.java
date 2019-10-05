@@ -28,16 +28,17 @@ public class ClickHere {
     }
 
     public static void execute(By by) {
+        LonelyOnlyDriver.scroll(-1000);
         MyLogger.printInfo("☆☆☆☆☆ClickHere Start☆☆☆☆☆");
         // 格納先ディレクトリを作成する
         FolderFactory.mkdir(IMG_STORE_PATH);
 
         WebElement wEle = LonelyOnlyDriver.findElement(by);
 
-//        LonelyOnlyDriver.getClickHereScreenShot(wEle, IMG_STORE_PATH);
+        LonelyOnlyDriver.getClickHereScreenShot(wEle, IMG_STORE_PATH);
 //        LonelyOnlyDriver.getClickHereScreenShot2(wEle, IMG_STORE_PATH);
 //        LonelyOnlyDriver.getClickHereScreenShotGettingLocationByJavascript(wEle, IMG_STORE_PATH);
-        LonelyOnlyDriver.getClickHereScreenShotAddingPngByJavascript(wEle, IMG_STORE_PATH);
+//        LonelyOnlyDriver.getClickHereScreenShotAddingPngByJavascript(wEle, IMG_STORE_PATH);
 
         LonelyOnlyDriver.findElement(by).click();
         LonelyOnlyDriver.getScreenShot(IMG_STORE_PATH);

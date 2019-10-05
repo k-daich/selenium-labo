@@ -11,6 +11,12 @@ package jp.co.daich.util;
  */
 public class Calculator {
 
+    /**
+     * 掛け算を実施
+     * @param x
+     * @param y
+     * @return 積
+     */
     public static int multiply(double x, double y) {
 
         double result = x * y;
@@ -22,4 +28,23 @@ public class Calculator {
         }
         return (int) result;
     }
+
+    /**
+     * 割り算を実施
+     * @param x
+     * @param y
+     * @return 商
+     */
+    public static double divide(double x, double y) {
+
+        double result = x / y;
+
+        if (Double.MAX_VALUE < result) {
+            throw new RuntimeException("商の結果がdoubleの最大値超過 result : " + result);
+        } else if (result < Double.MIN_VALUE) {
+            throw new RuntimeException("商の結果がdoubleの最小値未満 result : " + result);
+        }
+        return result;
+    }
+
 }

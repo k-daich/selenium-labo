@@ -6,15 +6,20 @@
 package jp.co.daich.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Date;
+import javax.imageio.ImageIO;
 import jp.co.daich.constants.properNoun.WINDOWS;
 import jp.co.daich.driver.develop.util.WebElementParser;
 import jp.co.daich.robot.RobotAction;
+import jp.co.daich.util.Calculator;
 import jp.co.daich.util.MyStringUtil;
 import jp.co.daich.util.file.image.ClickHereImageProcessor;
 import jp.co.daich.util.logger.MyLogger;
@@ -152,9 +157,12 @@ public class LonelyOnlyDriver {
      * @return javascript result
      */
     public static Object executeJavaScript(String script) {
+        Object result;
         MyLogger.printInfo("[Execute Javascript]" + script);
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
-        return javascriptExecutor.executeScript(script);
+        result = javascriptExecutor.executeScript(script);
+        MyLogger.printInfo("[Execute Javascript] result : " + result);
+        return result;
     }
 
     /**
@@ -185,150 +193,51 @@ public class LonelyOnlyDriver {
     }
 
     public static void getClickHereScreenShot(WebElement clickeEle, String imgStorePath) {
-        // webdriverで撮った一時スクショファイル
-        File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        double widthRatio = 0;
+        double heightRatio = 0;
         // スクリーンショット出力先
         String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
 
         // 入力/出力ストリーム開始
         try (
-                FileInputStream inStream = new FileInputStream(sFile);
-                FileOutputStream outStream = new FileOutputStream(outputPath);) {
-            int readBytes;
-            // 入力ストリームの読み込んだバイト数だけファイルに書き出す
-            while ((readBytes = inStream.read()) != -1) {
-                outStream.write(readBytes);
-            }
+                // OutputStream(画像合成ファイル)
+                OutputStream outStream = new FileOutputStream(outputPath);) {
+            // webdriverで撮った一時スクショファイル
+            BufferedImage scsho = ImageIO.read(new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
+
+            // スクショの書き出し
+            ImageIO.write(scsho, "png", outStream);
+            // 書き出したスクショと画面座標のサイズ比を算出(幅)
+            widthRatio = Calculator.divide(
+                    scsho.getWidth(),
+                    Double.parseDouble(executeJavaScript("return window.innerWidth;").toString()));
+            // 書き出したスクショと画面座標のサイズ比を算出(高さ)
+            heightRatio = Calculator.divide(
+                    scsho.getHeight(),
+                    Double.parseDouble(executeJavaScript("return window.innerHeight;").toString()));
+            MyLogger.printInfo("[widthRatio] is : " + widthRatio);
+            MyLogger.printInfo("[heightRatio] is : " + heightRatio);
             MyLogger.printInfo("store screens shot at : " + outputPath);
         } catch (IOException ex) {
             MyLogger.printInfo(ex.getMessage());
         }
         MyLogger.printInfo("click here target location X : " + clickeEle.getLocation().getX());
-        MyLogger.printInfo("click here target location X : " + clickeEle.getLocation().getY());
+        MyLogger.printInfo("click here target location Y : " + clickeEle.getLocation().getY());
         MyLogger.printInfo("click here target center position X : " + clickeEle.getRect().getWidth() / 2);
         MyLogger.printInfo("click here target center position Y : " + clickeEle.getRect().getHeight() / 2);
+
         // クリックヒア画像を生成
         ClickHereImageProcessor.composit(outputPath,
-                clickeEle.getLocation().getX() + clickeEle.getRect().getWidth() / 2,
-                clickeEle.getLocation().getY() + clickeEle.getRect().getHeight() / 2);
-    }
-
-    public static void getClickHereScreenShot2(WebElement clickeEle, String imgStorePath) {
-        // webdriverで撮った一時スクショファイル
-        File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        // スクリーンショット出力先
-        String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
-
-        // スクリーンショット生成
-        RobotAction.takeBrowserPicture(outputPath);
-        MyLogger.printInfo("store screens shot at : " + outputPath);
-
-        MyLogger.printInfo("click here target center position X : " + clickeEle.getRect().getWidth() / 2);
-        MyLogger.printInfo("click here target center position Y : " + clickeEle.getRect().getHeight() / 2);
-        // クリックヒア画像を生成
-        ClickHereImageProcessor.composit(outputPath,
-                clickeEle.getLocation().getX() + clickeEle.getRect().getWidth() / 2,
-                clickeEle.getLocation().getY() + clickeEle.getRect().getHeight() / 2 + getBrowserHeadHeight());
-    }
-
-    public static void getClickHereScreenShotGettingLocationByJavascript(WebElement clickeEle, String imgStorePath) {
-        int indexOfTagsBySameNameFromRoot = WebElementParser.getIndexOfByTagNameFromRoot(clickeEle);
-
-        MyLogger.printInfo("[click href] " + executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getAttribute('href');").toString());
-
-        int locationX = Integer.parseInt(
-                MyStringUtil.subString(
-                        executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().left;").toString(),
-                        '.'));
-        int locationY = Integer.parseInt(
-                MyStringUtil.subString(
-                        executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().top;").toString(),
-                        '.'));
-        int eleWidth = Integer.parseInt(
-                MyStringUtil.subString(
-                        executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().width;").toString(),
-                        '.'));
-        int eleHeight = Integer.parseInt(
-                MyStringUtil.subString(
-                        executeJavaScript("return document.getElementsByTagName('" + clickeEle.getTagName() + "')[" + indexOfTagsBySameNameFromRoot + "].getBoundingClientRect().height;").toString(),
-                        '.'));
-        // webdriverで撮った一時スクショファイル
-        File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        Date date = new Date();
-        // スクリーンショット出力先
-        String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
-
-        // 入力/出力ストリーム開始
-        try (
-                FileInputStream inStream = new FileInputStream(sFile);
-                FileOutputStream outStream = new FileOutputStream(outputPath);) {
-            int readBytes;
-            // 入力ストリームの読み込んだバイト数だけファイルに書き出す
-            while ((readBytes = inStream.read()) != -1) {
-                outStream.write(readBytes);
-            }
-            MyLogger.printInfo("store screens shot at : " + outputPath);
-        } catch (IOException ex) {
-            MyLogger.printInfo(ex.getMessage());
-        }
-        MyLogger.printInfo("click here target location X getting By Javascript : " + locationX / 2);
-        MyLogger.printInfo("click here target location Y getting By Javascript : " + locationY / 2);
-        MyLogger.printInfo("click here target center position X getting By Javascript : " + eleWidth / 2);
-        MyLogger.printInfo("click here target center position Y getting By Javascript : " + eleHeight / 2);
-        // クリックヒア画像を生成
-        ClickHereImageProcessor.composit(outputPath,
-                locationX + eleWidth / 2,
-                locationY + eleHeight / 2);
-    }
-
-    public static void getClickHereScreenShotAddingPngByJavascript(WebElement clickeEle, String imgStorePath) {
-        // webdriverで撮った一時スクショファイル
-        File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        // スクリーンショット出力先
-        String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq++ + "_output.png";
-
-        // 入力/出力ストリーム開始
-        try (
-                FileInputStream inStream = new FileInputStream(sFile);
-                FileOutputStream outStream = new FileOutputStream(outputPath);) {
-            int readBytes;
-            // 入力ストリームの読み込んだバイト数だけファイルに書き出す
-            while ((readBytes = inStream.read()) != -1) {
-                outStream.write(readBytes);
-            }
-            MyLogger.printInfo("store screens shot at : " + outputPath);
-        } catch (IOException ex) {
-            MyLogger.printInfo(ex.getMessage());
-        }
-        MyLogger.printInfo("click here target location X : " + clickeEle.getLocation().getX());
-        MyLogger.printInfo("click here target location X : " + clickeEle.getLocation().getY());
-        MyLogger.printInfo("click here target center position X : " + clickeEle.getRect().getWidth() / 2);
-        MyLogger.printInfo("click here target center position Y : " + clickeEle.getRect().getHeight() / 2);
-        executeJavaScript("var img = document.createElement('img');\n"
-                + "img.style.position = 'absolute';\n"
-                + "img.style.left = '" + clickeEle.getLocation().getX() + "px';\n"
-                + "img.style.top = '" + clickeEle.getLocation().getY() + "px';\n"
-                + "img.src = '\\images\\Title_logo.png';\n"
-                + "\n"
-                + "document.getElementsByTagName('html')[0].appendChild(img);");
-        // webdriverで撮った一時スクショファイル
-        sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        // スクリーンショット出力先
-        outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + fileSeq + "_output2_addedPngByJs.png";
-
-        // 入力/出力ストリーム開始
-        try (
-                FileInputStream inStream = new FileInputStream(sFile);
-                FileOutputStream outStream = new FileOutputStream(outputPath);) {
-            int readBytes;
-            // 入力ストリームの読み込んだバイト数だけファイルに書き出す
-            while ((readBytes = inStream.read()) != -1) {
-                outStream.write(readBytes);
-            }
-            MyLogger.printInfo("store screens shot at : " + outputPath);
-        } catch (IOException ex) {
-            MyLogger.printInfo(ex.getMessage());
-        }
+                // 書き出した画像とHTML座標の比率に差があるので掛け算する
+                Calculator.multiply(
+                        // 要素のX座標 + 要素自体の幅半分
+                        clickeEle.getLocation().getX() + clickeEle.getRect().getWidth() / 2,
+                        widthRatio),
+                // 書き出した画像とHTML座標の比率に差があるので掛け算する
+                Calculator.multiply(
+                        // 要素のY座標 + 要素自体の高さ半分
+                        clickeEle.getLocation().getY() + clickeEle.getRect().getHeight() / 2,
+                        heightRatio));
     }
 
     public static void getScreenShot(String imgStorePath) {
