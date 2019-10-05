@@ -1,12 +1,9 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+console.log('[clickListener.js] start');
 var body = document.getElementsByTagName('body');
 
-body.addEventListener('click', function (event) {
+body[0].addEventListener('click', function (event) {
+    event.preventDefault();
 
     console.log(event.target);
-
 }, false);
+

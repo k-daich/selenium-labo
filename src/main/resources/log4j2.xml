@@ -15,7 +15,7 @@
            %nは改行
       -->
         <Property name="logfile">C:\work\3_selenium\evi\logs\daich_selenium.log</Property>
-        <Property name="logfile-archive">C:\work\3_selenium\evi\logs\daich_selenium.log%d{yyyy-MM-dd}-%i</Property>
+        <Property name="logfile-archive">C:\work\3_selenium\evi\logs\daich_selenium%d{yyyy-MM-dd}-%i.log</Property>
     </Properties>
     
     <Appenders>

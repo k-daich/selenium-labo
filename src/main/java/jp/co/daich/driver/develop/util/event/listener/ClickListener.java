@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jp.co.daich.driver.develop.util.event.listener;
 
+import jp.co.daich.driver.develop.util.WebElementParser;
+import jp.co.daich.driver.develop.util.xpath.candidate.FullPath;
+import jp.co.daich.driver.develop.util.xpath.candidate.base.CandidateBase;
 import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,27 +14,28 @@ import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
  */
 public class ClickListener extends AbstractWebDriverEventListener {
 
-    private WebElement clickedWebElement = null;
+    private static String xpath = null;
 
     @Override
     //要素をクリックする直前の処理
     public void beforeClickOn(WebElement element, WebDriver driver) {
         MyLogger.printInfo("beforeClickOn:" + element.getTagName());
-        clickedWebElement = element;
+        CandidateBase candidate = new FullPath();
+        xpath = candidate.getXpaths(WebElementParser.getTagHierarchy(element)).get(0);
     }
 
     @Override
     //要素をクリックした直後の処理
     public void afterClickOn(WebElement element, WebDriver driver) {
-        MyLogger.printInfo("afterClickOn:" + element.getTagName());
+//        MyLogger.printInfo("afterClickOn:" + element.getTagName());
     }
 
     /**
-     * クリックされた要素情報を返す
+     * クリックされた要素のXpathを返す
      *
-     * @return clickedWebElement
+     * @return xpath
      */
-    public WebElement getClickedWebElement() {
-        return clickedWebElement;
+    public String getClickedXpath() {
+        return xpath;
     }
 }

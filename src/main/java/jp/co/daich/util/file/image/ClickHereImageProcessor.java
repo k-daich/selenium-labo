@@ -12,7 +12,8 @@ package jp.co.daich.util.file.image;
 public class ClickHereImageProcessor {
 
     public static void composit(String baseImagePath, int locationX, int locationY) {
-        ImageCompositor.composit(baseImagePath,"./target/classes/image/clickHere.png",locationX,locationY);
+        // X,Y座標ともに指の位置を中心とするために微調整(-10)する
+        ImageCompositor.composit(baseImagePath,"./target/classes/image/clickHere.png",locationX - 10,locationY - 10);
     }
 
 }

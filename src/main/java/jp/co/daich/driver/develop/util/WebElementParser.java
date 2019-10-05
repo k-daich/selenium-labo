@@ -9,7 +9,6 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import jp.co.daich.driver.LonelyOnlyDriver;
-import jp.co.daich.driver.develop.util.xpath.bean.WebElementInfo;
 import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

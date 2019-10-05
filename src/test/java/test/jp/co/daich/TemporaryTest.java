@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package test.jp.co.daich;
 
+import java.nio.file.Paths;
 import jp.co.daich.driver.LonelyOnlyDriver;
-import jp.co.daich.driver.develop.util.WebElementParser;
-import jp.co.daich.util.logger.MyLogger;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import test.jp.co.daich.base.TestBase;
 
 /**
@@ -27,9 +20,7 @@ public class TemporaryTest extends TestBase {
     @Test
     @Override
     public void doTest() {
-        MyLogger.printInfo("Result : " +
-                WebElementParser.getIndexOfByTagNameFromRoot(LonelyOnlyDriver.findElement(By.linkText("ウインドウを操作する")))
-        );
+        LonelyOnlyDriver.executeJavaScript(Paths.get("./src/main/java/jp/co/daich/javascript/src/clickListener.js"));
     }
 
 }

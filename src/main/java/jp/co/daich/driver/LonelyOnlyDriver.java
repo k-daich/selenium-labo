@@ -13,14 +13,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import jp.co.daich.constants.properNoun.WINDOWS;
-import jp.co.daich.driver.develop.util.WebElementParser;
-import jp.co.daich.robot.RobotAction;
 import jp.co.daich.util.Calculator;
-import jp.co.daich.util.MyStringUtil;
+import jp.co.daich.util.file.MyInputStreamReader;
 import jp.co.daich.util.file.image.ClickHereImageProcessor;
 import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.By;
@@ -52,6 +51,9 @@ public class LonelyOnlyDriver {
 
     static {
         driver = launchChromeDriver();
+        //カレントウインドウのサイズを幅:100,高さ:200に設定する
+//        driver.manage().window().setSize(new Dimension(512, 896));
+        driver.manage().window().setSize(new Dimension(512, 768));
         // ChromeDriverまでのパスを設定する
         driver.get("https://www.google.co.jp");
 
@@ -161,6 +163,21 @@ public class LonelyOnlyDriver {
         MyLogger.printInfo("[Execute Javascript]" + script);
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         result = javascriptExecutor.executeScript(script);
+        MyLogger.printInfo("[Execute Javascript] result : " + result);
+        return result;
+    }
+
+    /**
+     * execute Javascript
+     *
+     * @param scriptPath
+     * @return javascript result
+     */
+    public static Object executeJavaScript(Path scriptPath) {
+        Object result;
+        MyLogger.printInfo("[Execute Javascript]" + scriptPath);
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        result = javascriptExecutor.executeScript(MyInputStreamReader.readFile(scriptPath));
         MyLogger.printInfo("[Execute Javascript] result : " + result);
         return result;
     }
