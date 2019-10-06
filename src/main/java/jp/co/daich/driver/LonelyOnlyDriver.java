@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jp.co.daich.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -16,8 +11,10 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
 import javax.imageio.ImageIO;
 import jp.co.daich.constants.properNoun.WINDOWS;
+import jp.co.daich.driver.develop.util.ThreadUtil;
 import jp.co.daich.util.Calculator;
 import jp.co.daich.util.file.MyInputStreamReader;
 import jp.co.daich.util.file.image.ClickHereImageProcessor;
@@ -189,6 +186,44 @@ public class LonelyOnlyDriver {
      */
     public static void registEventListener(AbstractWebDriverEventListener eventListener) {
         eventDriver.register(eventListener);
+    }
+
+    /**
+     * 新しいウィンドウを開き、指定したURLへ遷移する
+     *
+     * @param url
+     * @return oldWindow(ウィンドウ戻す用)
+     */
+    public static String openNewWindow(String url) {
+        // 新規ウィンドウを開く前のアクティブウィンドウ
+        String oldWindow = driver.getWindowHandle();
+        // 新規ウィンドウを開く前のアクティブウィンドウ
+        Set<String> oldWindows = driver.getWindowHandles();
+
+        // 新規ウィンドウを開く前のウィンドウ数
+        int preWindowCount = driver.getWindowHandles().size();
+
+        executeJavaScript("window.open()");
+        int whileContinueCount = 0;
+        // ウィンドウが開くまで待機
+        while (preWindowCount == driver.getWindowHandles().size() && whileContinueCount < 10) {
+            ThreadUtil.sleep(500);
+            whileContinueCount++;
+        }
+
+        for (String window : driver.getWindowHandles()) {
+            // 新規ウィンドウを開く前には存在しないウィンドウだった場合
+            if (!oldWindows.contains(window)) {
+                // アクティブウィンドウの切り替え
+                driver.switchTo().window(window);
+                break;
+            }
+            throw new RuntimeException("[class] LonelyOnlyDriver [method]openNewWindow 新しいウィンドウを開き、切り替えた際に失敗。");
+        }
+        // 新しいウィンドウで指定したURLへ遷移
+        get(url);
+        // 新しいウィンドウを開く前のアクティブウィンドウを返す
+        return oldWindow;
     }
 
     /**

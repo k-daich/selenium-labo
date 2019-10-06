@@ -34,7 +34,7 @@
             </PatternLayout>
             <Policies>
                 //　1kBに達したらローテーションのファイルを作成する
-                <SizeBasedTriggeringPolicy size="10KB"/>
+                <SizeBasedTriggeringPolicy size="30KB"/>
             </Policies>
             //　ローテーションのファイルは、3つ持つ
             <DefaultRolloverStrategy max="3"/>

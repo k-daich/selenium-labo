@@ -21,7 +21,7 @@ public class MyInputStreamReader {
                 if (line == null) {
                     break;
                 }
-                sBuilder.append(line);
+                sBuilder.append(line).append("\n");
             }
         } catch (IOException ex) {
             throw new RuntimeException("Failed read file. file path : " + filePath, ex);

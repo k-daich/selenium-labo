@@ -5,11 +5,15 @@
  */
 package jp.co.daich.command;
 
+import java.io.File;
 import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.actions.MyActions;
 import jp.co.daich.driver.develop.util.ThreadUtil;
 import jp.co.daich.driver.develop.util.event.listener.ClickListener;
+import jp.co.daich.util.file.MyFileUtil;
 import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 /**
@@ -37,6 +41,7 @@ public class RkRkXpathGet {
 
     /**
      * リスナー起動中にクリックした要素のxpathを返す
+     *
      * @return 取得したxpath候補(List型)
      */
     public String waitClick() {
@@ -63,4 +68,26 @@ public class RkRkXpathGet {
         return xpath;
     }
 
+    /**
+     * htmlタグに設定された結果値を取得する
+     */
+    public static void getResult() {
+        // clickListener.jsがhtmlタグに埋め込んだ値
+        Object htmlAttribute = null;
+
+        for (int i = 0; i < 20; i++) {
+            htmlAttribute = null;
+            // 3秒待機
+            ThreadUtil.sleep(3000);
+            htmlAttribute = LonelyOnlyDriver.executeJavaScript(
+                    "return document.getElementsByTagName('html')[0].getAttribute('rkrkxpath');");
+            // clickListenerによって埋め込まれていた場合
+            if (htmlAttribute != null) {
+                MyLogger.printInfo("[result] : " + htmlAttribute.toString());
+                LonelyOnlyDriver.get(MyFileUtil.getFilePathFromProjectRoot("\\target\\classes\\docs\\rkrkXpathGet\\clickListenerResult.html"));
+
+                LonelyOnlyDriver.openNewWindow("clickListenerResult.html");
+            }
+        }
+    }
 }
