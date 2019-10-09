@@ -75,18 +75,21 @@ public class RkRkXpathGet {
         // clickListener.jsがhtmlタグに埋め込んだ値
         Object htmlAttribute = null;
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 120; i++) {
             htmlAttribute = null;
             // 3秒待機
-            ThreadUtil.sleep(3000);
+            ThreadUtil.sleep(1500);
             htmlAttribute = LonelyOnlyDriver.executeJavaScript(
                     "return document.getElementsByTagName('html')[0].getAttribute('rkrkxpath');");
             // clickListenerによって埋め込まれていた場合
             if (htmlAttribute != null) {
                 MyLogger.printInfo("[result] : " + htmlAttribute.toString());
-                LonelyOnlyDriver.get(MyFileUtil.getFilePathFromProjectRoot("\\target\\classes\\docs\\rkrkXpathGet\\clickListenerResult.html"));
-
-                LonelyOnlyDriver.openNewWindow("clickListenerResult.html");
+                LonelyOnlyDriver.openNewWindow(
+                        MyFileUtil.getFilePathFromProjectRoot(
+                                "\\src\\main\\resources\\docs\\rkrkXpathGet\\clickListenerResult.html"
+//                                "\\target\\classes\\docs\\rkrkXpathGet\\clickListenerResult.html"
+                                        + "?xpath="
+                                        +  htmlAttribute.toString()));
             }
         }
     }

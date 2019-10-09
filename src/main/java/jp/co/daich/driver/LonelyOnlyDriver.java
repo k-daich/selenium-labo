@@ -207,23 +207,23 @@ public class LonelyOnlyDriver {
         int whileContinueCount = 0;
         // ウィンドウが開くまで待機
         while (preWindowCount == driver.getWindowHandles().size() && whileContinueCount < 10) {
-            ThreadUtil.sleep(500);
-            whileContinueCount++;
+            MyLogger.printInfo("[openWindow waitCount : ]" + ++whileContinueCount);
+            ThreadUtil.sleep(100);
         }
 
+        // 新規ウィンドウを開いた後のウィンドウリストのうち、新規ウィンドウを探し出す
         for (String window : driver.getWindowHandles()) {
             // 新規ウィンドウを開く前には存在しないウィンドウだった場合
             if (!oldWindows.contains(window)) {
                 // アクティブウィンドウの切り替え
                 driver.switchTo().window(window);
-                break;
+                // 新しいウィンドウで指定したURLへ遷移
+                get(url);
+                // 新しいウィンドウを開く前のアクティブウィンドウを返す
+                return oldWindow;
             }
-            throw new RuntimeException("[class] LonelyOnlyDriver [method]openNewWindow 新しいウィンドウを開き、切り替えた際に失敗。");
         }
-        // 新しいウィンドウで指定したURLへ遷移
-        get(url);
-        // 新しいウィンドウを開く前のアクティブウィンドウを返す
-        return oldWindow;
+        throw new RuntimeException("[class] LonelyOnlyDriver [method]openNewWindow 新しいウィンドウが見つけられませんでした。");
     }
 
     /**
