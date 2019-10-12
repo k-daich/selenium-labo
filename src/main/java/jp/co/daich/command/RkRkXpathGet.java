@@ -5,15 +5,12 @@
  */
 package jp.co.daich.command;
 
-import java.io.File;
 import jp.co.daich.driver.LonelyOnlyDriver;
-import jp.co.daich.driver.actions.MyActions;
 import jp.co.daich.driver.develop.util.ThreadUtil;
 import jp.co.daich.driver.develop.util.event.listener.ClickListener;
 import jp.co.daich.util.file.MyFileUtil;
 import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 /**
@@ -88,7 +85,7 @@ public class RkRkXpathGet {
                         MyFileUtil.getFilePathFromProjectRoot(
                                 "\\src\\main\\resources\\docs\\rkrkXpathGet\\clickListenerResult.html"
 //                                "\\target\\classes\\docs\\rkrkXpathGet\\clickListenerResult.html"
-                                        + "?xpath="
+                                        + "?xpath1="
                                         +  htmlAttribute.toString()));
             }
         }

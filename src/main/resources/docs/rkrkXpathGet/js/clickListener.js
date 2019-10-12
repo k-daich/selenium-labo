@@ -2,6 +2,7 @@
 var body = document.getElementsByTagName('body');
 
 body[0].addEventListener('click', function (event) {
+    console.log('[click Event] : start');
     event.preventDefault();
 
     console.log(event.target);

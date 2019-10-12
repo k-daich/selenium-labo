@@ -4,40 +4,32 @@
         <title>RkRkXpathGet Result</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/clickListenerResult.css"/>
     </head>
-    <style>
-        input[type=radio] {
-            display: none; /* ラジオボタンを非表示にする */
-        }
-        .label {
-            margin: 5px; /* ラベル外側の余白を指定する */
-            border: 1px solid #006DD9;/* ラベルの境界線を実線で指定する */
-        }
-    </style>
     <body>
         <title>RkRkXpathGet</title>
-        <h1>Xpath 楽楽CHOICE画面</h1>
-        <form action="radio.php" method="post">
-            <div id="xpath1"></div>
-            <div id="xpath2"></div>
-            <div id="xpath3"></div>
-            <div id="xpath4"></div>
+        <h2>楽楽XpathGET</h2>
+        <h1>CHOICE画面</h1>
+        <form action="" method="post">
+            <div id="xpathButtons">
+                <group class="inline-radio">
+                    <div id="xpath1"></div><br>
+                    <div id="xpath2"></div><br>
+                    <div id="xpath3"></div><br>
+                    <div id="xpath4"></div><br>
+                </group>
+            </div>
         </form>
 
-        <div ></div>
-
-
-
         <script>
-
-            for (var i = 1; i < 4; i++ ) {
+            for (var i = 1; i <= 4; i++) {
                 var targetId = "xpath" + i;
                 // GETパラメータ「xpath1」の値を取得
                 var xpath = getParamValue(targetId);
                 console.log('[xpath] : ' + xpath);
                 console.log('[targetId] : ' + targetId);
                 console.log('[getElementId] : ' + document.getElementById(targetId));
-                document.getElementById(targetId).innerHTML = '<input type="radio" name="fruits" value="' + i + '"><label for="label' + i + '" class="label">' + xpath + '</label><br />';
+                document.getElementById(targetId).innerHTML = '<input type="radio" id="input_id_' + i + '"><label>' + xpath + '</label>';
             }
 
             /**
@@ -62,7 +54,6 @@
                 return decodeURIComponent(results[2].replace(/\+/g, " "));
             }
         </script>
-
+        <script src="./js/clickListenerResult.js"></script>
     </body>
 </html>
-

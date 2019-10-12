@@ -166,7 +166,6 @@ public class LonelyOnlyDriver {
 
     /**
      * execute Javascript
-     *
      * @param scriptPath
      * @return javascript result
      */
@@ -181,7 +180,6 @@ public class LonelyOnlyDriver {
 
     /**
      * regist EventListener
-     *
      * @param eventListener
      */
     public static void registEventListener(AbstractWebDriverEventListener eventListener) {
@@ -190,7 +188,6 @@ public class LonelyOnlyDriver {
 
     /**
      * 新しいウィンドウを開き、指定したURLへ遷移する
-     *
      * @param url
      * @return oldWindow(ウィンドウ戻す用)
      */
@@ -228,7 +225,6 @@ public class LonelyOnlyDriver {
 
     /**
      * ファイルのインデックスを返す
-     *
      * @return fileIndex
      */
     public static int getFileIndex() {
@@ -237,13 +233,17 @@ public class LonelyOnlyDriver {
 
     /**
      * unregist EventListener
-     *
      * @param eventListener
      */
     public static void unregistEventListener(AbstractWebDriverEventListener eventListener) {
         eventDriver.unregister(eventListener);
     }
 
+    /**
+     * 
+     * @param clickeEle
+     * @param imgStorePath 
+     */
     public static void getClickHereScreenShot(WebElement clickeEle, String imgStorePath) {
         double widthRatio = 0;
         double heightRatio = 0;
