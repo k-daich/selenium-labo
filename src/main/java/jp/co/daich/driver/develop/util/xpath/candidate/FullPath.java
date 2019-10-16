@@ -11,7 +11,7 @@ import java.util.List;
 import jp.co.daich.constants.properNoun.XML;
 import jp.co.daich.driver.LonelyOnlyDriver;
 import jp.co.daich.driver.develop.util.xpath.candidate.base.CandidateBase;
-import org.apache.commons.lang3.StringUtils;
+import jp.co.daich.util.MyStringUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -50,7 +50,7 @@ public class FullPath extends CandidateBase {
             xpath.append(tag.getTagName());
 
             // id属性がある場合
-            if (StringUtils.isNotEmpty(tag.getAttribute(XML.Attribute.ID.getName()))) {
+            if (MyStringUtil.isNotEmpty(tag.getAttribute(XML.Attribute.ID.getName()))) {
                 // id属性指定を行うxpathを追加する
                 xpath = appendAttributeSelector(
                         xpath,
@@ -59,7 +59,7 @@ public class FullPath extends CandidateBase {
             }
 
             // name属性がある場合
-            if (StringUtils.isNotEmpty(tag.getAttribute(XML.Attribute.NAME.getName()))) {
+            if (MyStringUtil.isNotEmpty(tag.getAttribute(XML.Attribute.NAME.getName()))) {
                 // name属性指定を行うxpathを追加する
                 xpath = appendAttributeSelector(
                         xpath,

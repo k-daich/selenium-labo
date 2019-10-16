@@ -74,3 +74,12 @@ group + group {
 .inline-radio div:last-child label {
     border-right: 0;
 }
+
+.btn{
+  border-radius: 5px;
+  background-color: #FFF;
+  padding: 10px 15%;
+  text-align: center;
+  color: #b6b6b6;
+  margin: 10px 20% 0px 50%;
+}

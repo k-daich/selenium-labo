@@ -5,8 +5,8 @@
  */
 package jp.co.daich.driver.develop.util.event.listener;
 
+import jp.co.daich.constants.properNoun.ObjectConstants;
 import jp.co.daich.util.logger.MyLogger;
-import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 
@@ -16,7 +16,7 @@ import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
  */
 public class LoadNewPageListener extends AbstractWebDriverEventListener {
 
-    private String gotUrl = StringUtils.EMPTY;
+    private String gotUrl = ObjectConstants.EMPTY;
 
     @Override
     public void beforeNavigateTo(String url, WebDriver driver) {

@@ -1,6 +1,5 @@
 package jp.co.daich.driver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -70,8 +69,8 @@ public class LonelyOnlyDriver {
         options.addArguments("disable-infobars");
         options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
         options.setExperimentalOption("useAutomationExtension", false);
-//        System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
-        WebDriverManager.chromedriver().setup();
+        System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
+//        WebDriverManager.chromedriver().setup();
         return new ChromeDriver();
     }
 
@@ -81,8 +80,8 @@ public class LonelyOnlyDriver {
      * @return edgeDriver
      */
     private static WebDriver launchEdgeDriver() {
-//        System.setProperty("webdriver.edge.driver", "src/main/java/jp/co/webdrivers/MicrosoftWebDriver.exe");
-        WebDriverManager.edgedriver().setup();
+        System.setProperty("webdriver.edge.driver", "src/main/java/jp/co/webdrivers/MicrosoftWebDriver.exe");
+//        WebDriverManager.edgedriver().setup();
         return new EdgeDriver();
     }
 
@@ -92,8 +91,8 @@ public class LonelyOnlyDriver {
      * @return chromeDriver
      */
     private static WebDriver launchFirefoxDriver() {
-//        System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
-        WebDriverManager.firefoxdriver().setup();
+        System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
+//        WebDriverManager.firefoxdriver().setup();
         return new FirefoxDriver();
     }
 
@@ -220,7 +219,7 @@ public class LonelyOnlyDriver {
                 return oldWindow;
             }
         }
-        throw new RuntimeException("[class] LonelyOnlyDriver [method]openNewWindow 新しいウィンドウが見つけられませんでした。");
+        throw new RuntimeException("[class] LonelyOnlyDriver [method]openNewWindow 新しいウィンドウが見つかりませんでした。");
     }
 
     /**

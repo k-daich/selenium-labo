@@ -3,9 +3,7 @@ package test.jp.co.daich;
 import java.nio.file.Paths;
 import jp.co.daich.command.RkRkXpathGet;
 import jp.co.daich.driver.LonelyOnlyDriver;
-import jp.co.daich.driver.develop.util.ThreadUtil;
 import jp.co.daich.util.file.MyFileUtil;
-import jp.co.daich.util.logger.MyLogger;
 import org.junit.Test;
 import test.jp.co.daich.base.TestBase;
 

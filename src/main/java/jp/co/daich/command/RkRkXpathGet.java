@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jp.co.daich.command;
 
 import jp.co.daich.driver.LonelyOnlyDriver;
@@ -75,7 +70,7 @@ public class RkRkXpathGet {
         for (int i = 0; i < 120; i++) {
             htmlAttribute = null;
             // 3秒待機
-            ThreadUtil.sleep(1500);
+            ThreadUtil.sleep(1000);
             htmlAttribute = LonelyOnlyDriver.executeJavaScript(
                     "return document.getElementsByTagName('html')[0].getAttribute('rkrkxpath');");
             // clickListenerによって埋め込まれていた場合

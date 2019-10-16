@@ -5,6 +5,8 @@
  */
 package jp.co.daich.util;
 
+import jp.co.daich.constants.properNoun.ObjectConstants;
+
 /**
  *
  * @author USER
@@ -12,8 +14,27 @@ package jp.co.daich.util;
 public class MyStringUtil {
 
     /**
-     * 先頭から指定文字に合致するまでの文字列を返す
-     *  例：文字列「abcdef」に対して'c'を指定した場合は「ab」を返す
+     * 空である場合にtrueを返す(nullの場合もtrueを返す)
+     * @param value
+     * @return isEmpty
+     */
+    public static boolean isEmpty(String value) {
+        return value == null
+                || ObjectConstants.EMPTY.equals(value);
+    }
+
+    /**
+     * 非空である場合にtrueを返す(nullの場合はfalseを返す)
+     * @param value
+     * @return isEmpty
+     */
+    public static boolean isNotEmpty(String value) {
+        return !isEmpty(value);
+    }
+
+    /**
+     * 先頭から指定文字に合致するまでの文字列を返す 例：文字列「abcdef」に対して'c'を指定した場合は「ab」を返す
+     *
      * @param src
      * @param subStarChara
      * @return 切り出された文字列
