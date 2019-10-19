@@ -1,5 +1,5 @@
 /target/
 /Squid/bin/squid.exe
-#/Squid/usr/share/squid/errors
+/Squid/usr/share/squid/errors
 /Squid/var
 
