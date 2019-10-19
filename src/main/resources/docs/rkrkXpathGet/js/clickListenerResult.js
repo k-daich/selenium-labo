@@ -38,7 +38,7 @@ window.onload = function () {
         checkedAnyRadio = checkedAnyRadio || checked;
 
         if (checked) {
-            element.nextElementSibling.style.backgroundColor = "#d81b60";
+            element.nextElementSibling.style.backgroundColor = "#f7b70b";
             element.nextElementSibling.style.color = "#FFFFFF";
         } else {
             element.nextElementSibling.style.backgroundColor = "#FFFFFF";

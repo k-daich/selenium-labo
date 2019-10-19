@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>RkRkXpathGet Result</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./css/clickListenerResult.css"/>
-    </head>
-    <body>
-        <title>RkRkXpathGet</title>
-        <h2>楽楽XpathGET</h2>
-        <h1>CHOICE画面</h1>
+
+<head>
+    <title>RkRkXpathGet Result</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/clickListenerResult.css" />
+</head>
+
+<body>
+    <title>RkRkGet</title>
+    <main>
+
+        <head>
+            <div class="body-head">
+                <div>楽楽XpathGET</div>
+                <div>CHOICE画面</div>
+            </div>
+        </head>
         <form action="" method="post">
             <div id="xpathButtons">
                 <group class="inline-radio">
@@ -18,43 +26,44 @@
                     <div id="xpath3"></div><br>
                     <div id="xpath4"></div><br>
                 </group>
-            <button id="decide_btn" class="btn" onclick="decide()">決定</button>
+                <button id="decide_btn" class="btn" onclick="decide()">→ That's it.</button>
             </div>
         </form>
+    </main>>
+    <script>
+    for (var i = 1; i <= 4; i++) {
+        var targetId = "xpath" + i;
+        // GETパラメータ「xpath1」の値を取得
+        var xpath = getParamValue(targetId);
+        console.log('[xpath] : ' + xpath);
+        console.log('[targetId] : ' + targetId);
+        console.log('[getElementId] : ' + document.getElementById(targetId));
+        document.getElementById(targetId).innerHTML = '<input type="radio" id="input_id_' + i + '"><label>' + xpath + '</label>';
+    }
 
-        <script>
-            for (var i = 1; i <= 4; i++) {
-                var targetId = "xpath" + i;
-                // GETパラメータ「xpath1」の値を取得
-                var xpath = getParamValue(targetId);
-                console.log('[xpath] : ' + xpath);
-                console.log('[targetId] : ' + targetId);
-                console.log('[getElementId] : ' + document.getElementById(targetId));
-                document.getElementById(targetId).innerHTML = '<input type="radio" id="input_id_' + i + '"><label>' + xpath + '</label>';
-            }
+    /**
+     * Get the URL parameter value
+     * @param  name {string} パラメータのキー文字列
+     * @return  url {url} 対象のURL文字列（任意）
+     */
+    function getParamValue(param) {
+        // URLパラメータ文字列を取得する
+        var getParam = location.search;
+        console.log('[getParam] : ' + getParam);
 
-            /**
-             * Get the URL parameter value
-             * @param  name {string} パラメータのキー文字列
-             * @return  url {url} 対象のURL文字列（任意）
-             */
-            function getParamValue(param) {
-                // URLパラメータ文字列を取得する
-                var getParam = location.search;
-                console.log('[getParam] : ' + getParam);
+        param = param.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + param + "(=([^&#]*)|&|#|$)");
+        var results = regex.exec(getParam);
+        if (!results) {
+            return null;
+        }
+        if (!results[2]) {
+            return '';
+        }
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    </script>
+    <script src="./js/clickListenerResult.js"></script>
+</body>
 
-                param = param.replace(/[\[\]]/g, "\\$&");
-                var regex = new RegExp("[?&]" + param + "(=([^&#]*)|&|#|$)");
-                var results = regex.exec(getParam);
-                if (!results) {
-                    return null;
-                }
-                if (!results[2]) {
-                    return '';
-                }
-                return decodeURIComponent(results[2].replace(/\+/g, " "));
-            }
-        </script>
-        <script src="./js/clickListenerResult.js"></script>
-    </body>
 </html>
