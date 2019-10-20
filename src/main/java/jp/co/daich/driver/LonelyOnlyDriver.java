@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import javax.imageio.ImageIO;
+import jp.co.daich.constants.properNoun.Browser;
 import jp.co.daich.constants.properNoun.WINDOWS;
 import jp.co.daich.driver.develop.util.ThreadUtil;
 import jp.co.daich.util.Calculator;
@@ -38,7 +39,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
  *
  * @author USER
  */
-public class LonelyOnlyDriver {
+public class LonelyOnlyDriver extends MyDriver {
 
     private static int fileSeq = 0;
     private static final WebDriver driver;
@@ -46,7 +47,7 @@ public class LonelyOnlyDriver {
     protected static final Actions acts;
 
     static {
-        driver = launchChromeDriver();
+        driver = launchFirefoxDriver();
         //カレントウインドウのサイズを幅:100,高さ:200に設定する
 //        driver.manage().window().setSize(new Dimension(512, 896));
         driver.manage().window().setSize(new Dimension(512, 768));
@@ -71,6 +72,7 @@ public class LonelyOnlyDriver {
         options.setExperimentalOption("useAutomationExtension", false);
         System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
 //        WebDriverManager.chromedriver().setup();
+        type = Browser.TYPE.CHROME;
         return new ChromeDriver();
     }
 
@@ -82,6 +84,7 @@ public class LonelyOnlyDriver {
     private static WebDriver launchEdgeDriver() {
         System.setProperty("webdriver.edge.driver", "src/main/java/jp/co/webdrivers/MicrosoftWebDriver.exe");
 //        WebDriverManager.edgedriver().setup();
+        type = Browser.TYPE.EDGE;
         return new EdgeDriver();
     }
 
@@ -91,8 +94,9 @@ public class LonelyOnlyDriver {
      * @return chromeDriver
      */
     private static WebDriver launchFirefoxDriver() {
-        System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.76.exe");
+        System.setProperty("webdriver.gecko.driver", "src/main/java/jp/co/webdrivers/geckodriver0.26.0.exe");
 //        WebDriverManager.firefoxdriver().setup();
+        type = Browser.TYPE.FIREFOX;
         return new FirefoxDriver();
     }
 

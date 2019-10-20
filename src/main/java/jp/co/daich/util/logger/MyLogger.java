@@ -16,6 +16,6 @@ public class MyLogger {
      * @param message
      */
     public static void printInfo(String message) {
-        logger.fatal("[" + Thread.currentThread().getStackTrace()[2].getFileName() + "]" + message);
+        logger.info("[" + Thread.currentThread().getStackTrace()[2].getFileName() + "]" + message);
     }
 }

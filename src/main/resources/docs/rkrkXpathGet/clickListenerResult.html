@@ -14,22 +14,25 @@
 
         <head>
             <div class="body-head">
-                <div>楽楽XpathGET</div>
-                <div>CHOICE画面</div>
+                <div>XpathGET</div>
+                <div>- choice -</div>
             </div>
         </head>
         <form action="" method="post">
             <div id="xpathButtons">
                 <group class="inline-radio">
-                    <div id="xpath1"></div><br>
-                    <div id="xpath2"></div><br>
-                    <div id="xpath3"></div><br>
-                    <div id="xpath4"></div><br>
+                    <div id="xpath1" class="brd-left"></div><br>
+                    <div id="xpath2" class="brd-left"></div><br>
+                    <div id="xpath3" class="brd-left"></div><br>
+                    <div id="xpath4" class="brd-left"></div><br>
                 </group>
-                <button id="decide_btn" class="btn" onclick="decide()">→ That's it.</button>
+                <a id="decide_btn" class="btn">
+                    <i class="fa-arrow-right"></i>
+                    That's it.
+                </a>
             </div>
         </form>
-    </main>>
+    </main>
     <script>
     for (var i = 1; i <= 4; i++) {
         var targetId = "xpath" + i;
