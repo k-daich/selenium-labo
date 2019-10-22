@@ -3,9 +3,11 @@
 
 <head>
     <title>RkRkXpathGet Result</title>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/clickListenerResult.css" />
+    <link rel="stylesheet" href="./css/font-awesome-animation.min.css" />
+    <link rel="stylesheet" href="./css/fontawesome-free-5.11.2-web\css/all.min.css" />
 </head>
 
 <body>
@@ -14,11 +16,10 @@
 
         <head>
             <div class="body-head">
-                <div>XpathGET</div>
-                <div>- choice -</div>
+                <div>choice xpath</div>
             </div>
         </head>
-        <form action="" method="post">
+        <form class="form-box" action="" method="post">
             <div id="xpathButtons">
                 <group class="inline-radio">
                     <div id="xpath1" class="brd-left"></div><br>
@@ -26,11 +27,16 @@
                     <div id="xpath3" class="brd-left"></div><br>
                     <div id="xpath4" class="brd-left"></div><br>
                 </group>
-                <a id="decide_btn" class="btn">
-                    <i class="fa-arrow-right"></i>
-                    That's it.
-                </a>
-            </div>
+                <div class="btn-area">
+                    <a class="btn btn-black">
+                        <i class="fa fa-frog faa-vertical animated green"></i>
+                        Go back.
+                    </a>
+                    <a id="decide_btn" class="btn btn-hidden">
+                        <i class="fa fa-grin-tongue-wink faa-vertical animated color-hidden"></i>
+                        That's it.
+                    </a>
+                </div>
         </form>
     </main>
     <script>

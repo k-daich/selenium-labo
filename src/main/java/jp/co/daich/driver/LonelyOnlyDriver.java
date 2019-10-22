@@ -47,7 +47,7 @@ public class LonelyOnlyDriver extends MyDriver {
     protected static final Actions acts;
 
     static {
-        driver = launchFirefoxDriver();
+        driver = launchChromeDriver();
         //カレントウインドウのサイズを幅:100,高さ:200に設定する
 //        driver.manage().window().setSize(new Dimension(512, 896));
         driver.manage().window().setSize(new Dimension(512, 768));

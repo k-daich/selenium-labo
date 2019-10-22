@@ -11,7 +11,7 @@ body {
 }
 
 body {
-    background: #fff;
+    background: rgba(0, 0, 0, 0.7);
     font-weight: 400;
     font-family: "Ek Mukta", sans-serif;
     /*font-family: 'Roboto', sans-serif;*/
@@ -20,6 +20,7 @@ body {
 }
 
 .body-head {
+    background: #fff;
     margin: 0px;
     padding: 10px 0px 20px;
     background: #fff;
@@ -27,14 +28,13 @@ body {
     top : 0;
 }
 
-main {
-    background: rgba(0, 0, 0, 0.7);
+.form-box {
     width: 100%;
     color: #b6b6b6;
     margin-top: 20px;
     padding: 30px;
     min-width: 320px;
-    max-width: 540px;
+    max-width: 640px;
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     border-radius: 3px;
 }
@@ -96,25 +96,39 @@ group+group {
     border-color: #f7b70b;
 }
 
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome; /*Font Awesomeのフォントファミリー*/
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.fa-arrow-right {
-    content: "\f061";
+.btn-area {
+    width : 100%;
+    display: inline-flex;
 }
 
 .btn {
+    width: 50%;
     display: block;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     padding: 10px 8%;
     text-align: center;
-    border-style: solid 3px transparent;
+    /*border-style: solid 3px transparent;*/
     border-color: #b6b6b6;
-    margin: 10px 20% 0px 40%;
+    margin: 10px 40px;
+    transition: 1.0s;
+}
+
+.btn-hidden {
+}
+
+i::before.color-hidden {
+    color : rgba(0, 0, 0, 0.7);
+}
+
+.btn-black {
+    background: #000;
+    color: #fff;
+}
+
+.green {
+    color: #5b9126;
+}
+
+.yellow {
+    color: yellow;
 }

@@ -67,7 +67,7 @@ public class RkRkXpathGet {
         // clickListener.jsがhtmlタグに埋め込んだ値
         Object htmlAttribute = null;
 
-        for (int i = 0; i < 120; i++) {
+        for (int i = 0; i < 60; i++) {
             htmlAttribute = null;
             // 3秒待機
             ThreadUtil.sleep(1000);
@@ -77,6 +77,7 @@ public class RkRkXpathGet {
             if (htmlAttribute != null) {
                 MyLogger.printInfo("[result] : " + htmlAttribute.toString());
                 LonelyOnlyDriver.openNewWindow(
+                        "file://" +
                         MyFileUtil.getFilePathFromProjectRoot(
                                 "\\src\\main\\resources\\docs\\rkrkXpathGet\\clickListenerResult.html"
 //                                "\\target\\classes\\docs\\rkrkXpathGet\\clickListenerResult.html"

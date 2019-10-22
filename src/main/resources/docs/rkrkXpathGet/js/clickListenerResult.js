@@ -48,7 +48,7 @@ window.onload = function () {
     function setBtnStyle() {
     	var btn = document.getElementById('decide_btn');
         if (checkedAnyRadio) {
-            btn.style.backgroundColor = "#336";
+            btn.style.backgroundColor = "#000";
             btn.style.color = "#FFF";
         }
     }

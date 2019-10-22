@@ -5,7 +5,8 @@
  */
 package jp.co.daich.util.file.image;
 
-import java.awt.Graphics;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -35,11 +36,13 @@ public class ImageCompositor {
      * @param locationY
      */
     public static void composit(String baseImagePath, String addingImagePath, int locationX, int locationY) {
-        Graphics graphics = null;
+        Graphics2D graphics = null;
         BufferedImage bufferedImage_base = getBufferedImage(baseImagePath);
         BufferedImage bufferedImage_adding = getBufferedImage(addingImagePath);
         try {
-            graphics = bufferedImage_base.getGraphics();
+            graphics = bufferedImage_base.createGraphics();
+            // 合成画像の透明度を指定する
+            graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.8F));
             // 合成処理を実施する
             graphics.drawImage(
                     bufferedImage_adding,
