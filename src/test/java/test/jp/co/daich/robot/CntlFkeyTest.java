@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import jp.co.daich.command.CtrlFSearch;
 import jp.co.daich.robot.RobotAction;
 import org.junit.Test;
 import test.jp.co.daich.base.TestBase;
@@ -25,32 +26,8 @@ public class CntlFkeyTest extends TestBase {
     @Test
     @Override
     public void doTest() {
-        try {
-            long waitTime = 3000;
-
-            // ctrl + F  
-            RobotAction.keyPress(KeyEvent.VK_CONTROL);
-            RobotAction.keyPress(KeyEvent.VK_F);
-
-            // CTRL+F is now pressed 
-            RobotAction.keyRelease(KeyEvent.VK_F);
-            RobotAction.keyRelease(KeyEvent.VK_CONTROL);
-
-            Thread.sleep(waitTime);
-            String text = "CSS Grid";
-            StringSelection stringSelection = new StringSelection(text);
-            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-
-            clipboard.setContents(stringSelection, stringSelection);
-
-            RobotAction.keyPress(KeyEvent.VK_CONTROL);
-            RobotAction.keyPress(KeyEvent.VK_V);
-            RobotAction.keyRelease(KeyEvent.VK_V);
-            RobotAction.keyRelease(KeyEvent.VK_CONTROL);
-            Thread.sleep(waitTime);
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        CtrlFSearch.execute("要素に対して「getLocation」を実行することで要素の(X,Y)座標を取得することが出来ます。");
+        CtrlFSearch.execute("対して「getLocation」を実行することで、要素の(X,Y)座標を取得し");
+        CtrlFSearch.execute("getLocation・・・要素の(X,Y)座標を取得する");
     }
 }

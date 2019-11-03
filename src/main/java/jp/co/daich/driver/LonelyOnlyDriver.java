@@ -366,9 +366,17 @@ public class LonelyOnlyDriver extends MyDriver {
 
     /**
      * return Browser Width
+     * @return BrowserWidth
      */
     public static int getBrowserWidth() {
         return driver.manage().window().getSize().getWidth();
+    }
+
+    /**
+     * @return page source
+     */
+    public static String getPageSource() {
+        return driver.getPageSource();
     }
 
 }
