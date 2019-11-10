@@ -5,8 +5,7 @@
  */
 package test.jp.co.daich.selenium.actions;
 
-import jp.co.daich.driver.LonelyOnlyDriver;
-import jp.co.daich.driver.actions.MyActions;
+import jp.co.daich.driver.LonelyMyDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import test.jp.co.daich.base.TestBase;
@@ -19,28 +18,28 @@ public class PressKeysTest extends TestBase {
 
     @Override
     public void doTest() {
-        MyActions.get("https://teratail.com/questions/433");
+        LonelyMyDriver.operate().get("https://teratail.com/questions/433");
 
-        MyActions.pressKeys(
+        LonelyMyDriver.operate().pressKeys(
                 "ALT",
                 "LEFT");
-        MyActions.wait(3000);
+        LonelyMyDriver.operate().wait(3000);
 
-        LonelyOnlyDriver.findElement(By.tagName("body")).sendKeys(Keys.F5);
-        MyActions.pressKeys(
+        LonelyMyDriver.operate().findElement(By.tagName("body")).sendKeys(Keys.F5);
+        LonelyMyDriver.operate().pressKeys(
                 "ALT",
                 "LEFT");
-        MyActions.pressKeys(
+        LonelyMyDriver.operate().pressKeys(
                 "ALT",
                 "RIGHT");
 
-        MyActions.wait(3000);
+        LonelyMyDriver.operate().wait(3000);
 
-        LonelyOnlyDriver.findElement(By.tagName("body")).sendKeys(Keys.F5);
-        MyActions.pressKeys(
+        LonelyMyDriver.operate().findElement(By.tagName("body")).sendKeys(Keys.F5);
+        LonelyMyDriver.operate().pressKeys(
                 "F5");
 
-        MyActions.pressKeys(
+        LonelyMyDriver.operate().pressKeys(
                 "F5");
 
     }   

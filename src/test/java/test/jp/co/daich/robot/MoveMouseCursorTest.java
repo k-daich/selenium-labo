@@ -5,7 +5,7 @@
  */
 package test.jp.co.daich.robot;
 
-import jp.co.daich.driver.actions.MyActions;
+import jp.co.daich.driver.LonelyMyDriver;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import test.jp.co.daich.base.TestBase;
@@ -23,9 +23,9 @@ public class MoveMouseCursorTest extends TestBase {
     @Override
     public void doTest() {
         //検索ボタンの要素をname属性名から取得
-        MyActions.moveCursorToElement(By.linkText("規約"));
-        MyActions.wait(5000);
-        MyActions.mouseClick();
-        MyActions.wait(5000);
+        LonelyMyDriver.operate().moveCursorToElement(By.linkText("規約"));
+        LonelyMyDriver.operate().wait(5000);
+        LonelyMyDriver.operate().mouseClick();
+        LonelyMyDriver.operate().wait(5000);
     }
 }

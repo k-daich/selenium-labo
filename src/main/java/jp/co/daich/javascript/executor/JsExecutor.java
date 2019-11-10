@@ -5,7 +5,7 @@
  */
 package jp.co.daich.javascript.executor;
 
-import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.LonelyMyDriver;
 import org.openqa.selenium.JavascriptExecutor;
 
 /**
@@ -28,8 +28,8 @@ public abstract class JsExecutor {
         JavascriptExecutor jsExe = null;
 
         // WebDriverがJavascriptExecutorの親クラスかチェックする
-        if (LonelyOnlyDriver.getDriver() instanceof JavascriptExecutor) {
-            jsExe = (JavascriptExecutor) LonelyOnlyDriver.getDriver();
+        if (LonelyMyDriver.operate() instanceof JavascriptExecutor) {
+            jsExe = (JavascriptExecutor) LonelyMyDriver.operate();
         } else {
             throw new RuntimeException("this driver is not applied JavascriptExecutor");
         }

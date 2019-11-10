@@ -1,12 +1,11 @@
 package jp.co.daich.command;
 
-import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.driver.develop.util.ThreadUtil;
 import jp.co.daich.driver.develop.util.event.listener.ClickListener;
 import jp.co.daich.util.file.MyFileUtil;
 import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 /**
  *
@@ -14,21 +13,18 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
  */
 public class RkRkXpathGet {
 
-    // ドライバー中でリスナーを管理するためのクラス
-    private static EventFiringWebDriver eventFiringDriver = null;
     // URL取得のために使用するリスナー
     private static ClickListener clickListener = null;
 
+    
     /**
      * クリックされた要素情報取得用リスナーを開始
      */
     public void startListener() {
-        //対象のWebDriverをイベント発生クラスに渡しインスタンスを作成する
-        eventFiringDriver = new EventFiringWebDriver(LonelyOnlyDriver.getDriver());
         //イベント捕捉クラスのインスタンスを作成する
         clickListener = new ClickListener();
         //イベント捕捉クラスをイベント発生クラスへ登録する
-        eventFiringDriver.register(clickListener);
+        LonelyMyDriver.operate().startListener(clickListener);
     }
 
     /**
@@ -46,7 +42,7 @@ public class RkRkXpathGet {
             MyLogger.printInfo("wait taimes : " + i);
 
             // TODO: Delete Test Code
-            eventFiringDriver.findElement(By.cssSelector("a[href=\"https://www.seleniumqref.com/api/java/element_infoget/Java_getOptions.html\"]")).click();
+            LonelyMyDriver.operate().findElement(By.cssSelector("a[href=\"https://www.seleniumqref.com/api/java/element_infoget/Java_getOptions.html\"]")).click();
 
             if (clickListener.getClickedXpath() != null) {
 //                    && clickListener.getClickedWebElement() != lastClickedWebElement
@@ -55,7 +51,7 @@ public class RkRkXpathGet {
             }
         }
         // イベントリスナーの登録解除
-        eventFiringDriver.unregister(clickListener);
+        LonelyMyDriver.operate().stopListener(clickListener);
         // xpathの候補リストを取得
         return xpath;
     }
@@ -71,12 +67,12 @@ public class RkRkXpathGet {
             htmlAttribute = null;
             // 3秒待機
             ThreadUtil.sleep(1000);
-            htmlAttribute = LonelyOnlyDriver.executeJavaScript(
+            htmlAttribute = LonelyMyDriver.operate().executeJavaScript(
                     "return document.getElementsByTagName('html')[0].getAttribute('rkrkxpath');");
             // clickListenerによって埋め込まれていた場合
             if (htmlAttribute != null) {
                 MyLogger.printInfo("[result] : " + htmlAttribute.toString());
-                LonelyOnlyDriver.openNewWindow(
+                LonelyMyDriver.operate().openNewWindow(
                         "file://" +
                         MyFileUtil.getFilePathFromProjectRoot(
                                 "\\src\\main\\resources\\docs\\rkrkXpathGet\\clickListenerResult.html"

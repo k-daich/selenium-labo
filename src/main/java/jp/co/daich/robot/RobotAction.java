@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.util.Calculator;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -125,8 +125,8 @@ public class RobotAction {
      * @param imagePath
      */
     public static void takeBrowserPicture(String imagePath) {
-        Point pos = LonelyOnlyDriver.getBrowserPosition();
-        Dimension size = LonelyOnlyDriver.getBrowserSize();
+        Point pos = LonelyMyDriver.operate().getBrowserPosition();
+        Dimension size = LonelyMyDriver.operate().getBrowserSize();
 
         // キャプチャの範囲
         Rectangle bounds = new Rectangle(

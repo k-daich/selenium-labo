@@ -10,7 +10,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import jp.co.daich.constants.ProjectCommon;
-import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.robot.RobotAction;
 import jp.co.daich.util.file.FolderFactory;
 import jp.co.daich.util.logger.MyLogger;
@@ -48,7 +48,7 @@ public class CtrlFSearch {
             inputTextByClipBord(keyword);
 
             // スクリーンショットを取得し保存する
-            LonelyOnlyDriver.getScreenShot(IMG_STORE_PATH);
+            LonelyMyDriver.operate().getScreenShot(IMG_STORE_PATH);
 
             // 検索フォームの取り消し
             pushEscape();

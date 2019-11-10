@@ -5,7 +5,7 @@
  */
 package test.jp.co.daich.selenium.actions;
 
-import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.driver.develop.util.WebElementParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,7 +19,7 @@ public class PrintXpathTest extends TestBase {
     @Override
     public void doTest() {
         //検索ボタンの要素をname属性名から取得
-        WebElement element = LonelyOnlyDriver.findElement(By.linkText("セレクトタグに含まれるオプションを取得する"));
+        WebElement element = LonelyMyDriver.operate().findElement(By.linkText("セレクトタグに含まれるオプションを取得する"));
 
         WebElementParser.getTagHierarchy(element);
     }

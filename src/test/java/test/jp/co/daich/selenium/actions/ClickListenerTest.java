@@ -5,7 +5,7 @@
  */
 package test.jp.co.daich.selenium.actions;
 
-import jp.co.daich.driver.actions.MyActions;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.javascript.executor.impl.ClickListenerExecutor;
 import test.jp.co.daich.base.TestBase;
 
@@ -18,6 +18,6 @@ public class ClickListenerTest extends TestBase {
     @Override
     public void doTest() {
         new ClickListenerExecutor().run();
-        MyActions.wait(50000);
+        LonelyMyDriver.operate().wait(50000);
     }
 }

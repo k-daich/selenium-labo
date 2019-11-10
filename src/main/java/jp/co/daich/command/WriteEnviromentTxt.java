@@ -7,7 +7,7 @@ package jp.co.daich.command;
 
 import java.text.SimpleDateFormat;
 import jp.co.daich.constants.ProjectCommon;
-import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.util.file.FileWriterCustom;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
@@ -33,7 +33,7 @@ public class WriteEnviromentTxt {
     public static void write() {
         FileWriterCustom.write(
                 VERSION_STORE_PATH,
-                getEnviromentInfo(LonelyOnlyDriver.getDriver()));
+                getEnviromentInfo());
     }
 
     /**
@@ -42,9 +42,9 @@ public class WriteEnviromentTxt {
      * @param driver
      * @return
      */
-    private static String getEnviromentInfo(WebDriver driver) {
+    private static String getEnviromentInfo() {
         //ドライバのcapability情報を取得
-        Capabilities capabilities = ((RemoteWebDriver) LonelyOnlyDriver.getDriver()).getCapabilities();
+        Capabilities capabilities = ((RemoteWebDriver) LonelyMyDriver.operate()).getCapabilities();
 
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("Date    : ").append(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(ProjectCommon.TEST_DATE)).append("\n");

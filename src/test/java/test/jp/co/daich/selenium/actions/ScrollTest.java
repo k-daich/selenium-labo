@@ -1,6 +1,6 @@
 package test.jp.co.daich.selenium.actions;
 
-import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.driver.develop.util.ThreadUtil;
 import org.junit.Test;
 import test.jp.co.daich.base.TestBase;
@@ -18,7 +18,7 @@ public class ScrollTest extends TestBase {
     @Override
     public void doTest() {
         for (int i = 10;;) {
-            LonelyOnlyDriver.scroll(250);
+            LonelyMyDriver.operate().scroll(250);
             ThreadUtil.sleep(500);
             if (i-- < 0) {
                 break;
@@ -26,7 +26,7 @@ public class ScrollTest extends TestBase {
         }
 
         for (int i = 10;;) {
-            LonelyOnlyDriver.scroll(-250);
+            LonelyMyDriver.operate().scroll(-250);
             ThreadUtil.sleep(500);
             if (i-- < 0) {
                 break;

@@ -8,7 +8,7 @@ package jp.co.daich.driver.develop.util;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
-import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -47,7 +47,7 @@ public class WebElementParser {
      */
     public static int getIndexOfByTagNameFromRoot(WebElement wEle) {
         int nth;
-        WebElement rootEle = LonelyOnlyDriver.findElement(By.xpath("/html"));
+        WebElement rootEle = LonelyMyDriver.operate().findElement(By.xpath("/html"));
         List<WebElement> candidates = rootEle.findElements(By.tagName(wEle.getTagName()));
         
         for (WebElement candidate : candidates) {

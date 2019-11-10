@@ -5,7 +5,7 @@
  */
 package test.jp.co.daich.robot;
 
-import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.robot.RobotAction;
 import org.junit.Test;
 import test.jp.co.daich.base.TestBase;
@@ -22,7 +22,7 @@ public class WheelkeyTest extends TestBase {
     @Test
     @Override
     public void doTest() {
-        LonelyOnlyDriver.get("http://vermeer.hatenablog.jp/entry/2018/05/30/171915");
+        LonelyMyDriver.operate().get("http://vermeer.hatenablog.jp/entry/2018/05/30/171915");
         try {
             long waitTime = 1000;
 

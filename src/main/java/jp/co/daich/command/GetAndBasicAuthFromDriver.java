@@ -7,7 +7,7 @@
 package jp.co.daich.command;
 
 import java.io.File;
-import jp.co.daich.driver.actions.MyActions;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.driver.develop.util.ThreadUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -33,33 +33,33 @@ public class GetAndBasicAuthFromDriver {
      * @param passwd
      */
     public static void execute(String url, String userName, String passwd) {
-        MyActions.getActions().sendKeys(Keys.chord(Keys.CONTROL, "t")).build().perform();
+        LonelyMyDriver.operate().sendKeys(Keys.chord(Keys.CONTROL, "t"));
         ThreadUtil.sleep(3000);
-        MyActions.getActions().sendKeys(Keys.chord("t", "e","s","t")).build().perform();
+        LonelyMyDriver.operate().sendKeys(Keys.chord("t", "e","s","t"));
         ThreadUtil.sleep(3000);
 
         String absoluteCurrentDir = new File(".").getAbsoluteFile().getParent();
-        MyActions.getDriver().get("file:///" + absoluteCurrentDir + "/src/main/resources/docs/forCommand/basicAuthRelay.html");
+        LonelyMyDriver.operate().get("file:///" + absoluteCurrentDir + "/src/main/resources/docs/forCommand/basicAuthRelay.html");
         ThreadUtil.sleep(3000);
 
         // input URL
-        MyActions.sendKeys(MyActions.findElement(By.id("urlFd")), url);
+        LonelyMyDriver.operate().sendKeys(LonelyMyDriver.operate().findElement(By.id("urlFd")), url);
         ThreadUtil.sleep(3000);
 
         // click URL
-        MyActions.click(MyActions.findElement(By.id("postFd")));
+        LonelyMyDriver.operate().click(LonelyMyDriver.operate().findElement(By.id("postFd")));
 
         ThreadUtil.sleep(3000);
-        MyActions.getActions().sendKeys(Keys.TAB).build().perform();
+        LonelyMyDriver.operate().sendKeys(Keys.TAB);
         ThreadUtil.sleep(3000);
-        MyActions.getActions().sendKeys(Keys.ENTER).build().perform();
+        LonelyMyDriver.operate().sendKeys(Keys.ENTER);
         ThreadUtil.sleep(10000);
 
         // press Ctrl + L
-//        WebElement webElement = MyActions.findElement(By.linkText("トップページ"));
+//        WebElement webElement = myDriver.findElement(By.linkText("トップページ"));
 //        Logger.printSevere("x is : " + webElement.getLocation().getX());
 //        Logger.printSevere("y is : " + webElement.getLocation().getY());
-//        MyActions.getActions().moveToElement(webElement, 0, -150).click().build().perform();
+//        myDriver.moveToElement(webElement, 0, -150).click().build().perform();
 //        ThreadUtil.sleep(15000);
     }
 }

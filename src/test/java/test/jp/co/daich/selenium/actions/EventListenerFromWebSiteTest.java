@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package test.jp.co.daich.selenium.actions;
 
-import jp.co.daich.driver.LonelyOnlyDriver;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.driver.develop.util.event.listener.ClickListener;
 import org.openqa.selenium.By;
 import test.jp.co.daich.base.TestBase;
@@ -21,11 +16,11 @@ public class EventListenerFromWebSiteTest extends TestBase {
         //イベント捕捉クラスのインスタンスを作成する
         ClickListener eventListener = new ClickListener();
         //イベント捕捉クラスをイベント発生クラスへ登録する
-        LonelyOnlyDriver.registEventListener(eventListener);
+        LonelyMyDriver.operate().registEventListener(eventListener);
         //指定したURLを開く
-        LonelyOnlyDriver.get("https://www.google.co.jp");
+        LonelyMyDriver.operate().get("https://www.google.co.jp");
         //「Gmail」のリンクテキストをクリックする
-        LonelyOnlyDriver.findElement(By.linkText("Gmail")).click();
+        LonelyMyDriver.operate().findElement(By.linkText("Gmail")).click();
     }
 
 }
