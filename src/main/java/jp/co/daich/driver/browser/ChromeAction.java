@@ -9,10 +9,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import jp.co.daich.constants.properNoun.WINDOWS;
 import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.manage.evi.EviSeqManager;
+import jp.co.daich.util.file.image.ImageCompositor;
 import jp.co.daich.util.logger.MyLogger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -34,14 +37,22 @@ public class ChromeAction implements BrowserDependentAction {
         // 直近ブラウザ表示のY位置 ※初期値を-1にすることで初回のisScrolledをtrueにしている
         long latestViewTopHeight = -1;
         long nowViewTopHeight = 0;
+        List<String> captureList = new ArrayList<>();
 
         // ブラウザY座標が高くなり続ける間はスクリーンショットを保存する
         while (nowViewTopHeight > latestViewTopHeight) {
-            takeCapture(driver, imgStorePath);
+            // スクショ出力先
+            String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + EviSeqManager.getSeq() + ".png";
+            // スクショを実施
+            takeCapture(driver, outputPath);
+            // スクショリストに追加
+            captureList.add(outputPath);
             latestViewTopHeight = nowViewTopHeight;
             // ウィンドウ高さ分だけスクロール
             nowViewTopHeight = scroll(driver);
         }
+
+        ImageCompositor.composit(captureList,  imgStorePath + WINDOWS.FILE_SEPARATOR + EviSeqManager.getSeq() + "_merged.png");
     }
 
     /**
@@ -54,19 +65,17 @@ public class ChromeAction implements BrowserDependentAction {
         // webdriverで撮った一時スクショファイル
         File sFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         Date date = new Date();
-        // スクリーンショット出力先
-        String outputPath = imgStorePath + WINDOWS.FILE_SEPARATOR + EviSeqManager.getSeq() + "_output.png";
 
         // 入力/出力ストリーム開始
         try (
                 FileInputStream inStream = new FileInputStream(sFile);
-                FileOutputStream outStream = new FileOutputStream(outputPath);) {
+                FileOutputStream outStream = new FileOutputStream(imgStorePath)) {
             int readBytes;
             // 入力ストリームの読み込んだバイト数だけファイルに書き出す
             while ((readBytes = inStream.read()) != -1) {
                 outStream.write(readBytes);
             }
-            MyLogger.printInfo("store screens shot at : " + outputPath);
+            MyLogger.printInfo("store screens shot at : " + imgStorePath);
         } catch (IOException ex) {
             MyLogger.printInfo(ex.getMessage());
         }
