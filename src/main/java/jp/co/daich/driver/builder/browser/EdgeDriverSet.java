@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package jp.co.daich.driver.builder;
+package jp.co.daich.driver.builder.browser;
 
 import jp.co.daich.constants.properNoun.Browser;
 import jp.co.daich.driver.MyDriver;
 import jp.co.daich.driver.browser.EdgeAction;
-import jp.co.daich.driver.builder.browser.BrowserSet;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.Options;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 
 /**
  *
@@ -28,8 +25,8 @@ public class EdgeDriverSet implements BrowserSet {
      * @return webDriver
      */
     @Override
-    public WebDriver createWebDriver() {
-        return new EdgeDriver();
+    public WebDriver createWebDriver(Capabilities options) {
+        return new EdgeDriver(options);
     }
 
     /**
@@ -52,8 +49,10 @@ public class EdgeDriverSet implements BrowserSet {
      * set Property per Browser
      */
     @Override
-    public void setDriverProperty() {
+    public Capabilities setDriverProperty() {
         System.setProperty("webdriver.edge.driver", "src/main/java/jp/co/webdrivers/MicrosoftWebDriver.exe");
+        EdgeOptions options = new EdgeOptions();
+        return (Capabilities) options;
     }
 
 }

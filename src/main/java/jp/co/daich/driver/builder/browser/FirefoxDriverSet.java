@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package jp.co.daich.driver.builder;
+package jp.co.daich.driver.builder.browser;
 
 import jp.co.daich.constants.properNoun.Browser;
 import jp.co.daich.driver.MyDriver;
 import jp.co.daich.driver.browser.FirefoxAction;
-import jp.co.daich.driver.builder.browser.BrowserSet;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.Options;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 /**
  *
@@ -25,11 +22,12 @@ public class FirefoxDriverSet implements BrowserSet {
     }
 
     /**
+     * @param options
      * @return webDriver
      */
     @Override
-    public WebDriver createWebDriver() {
-        return new FirefoxDriver();
+    public WebDriver createWebDriver(Capabilities options) {
+        return new FirefoxDriver(options);
     }
 
     /**
@@ -52,8 +50,10 @@ public class FirefoxDriverSet implements BrowserSet {
      * set Property per Browser
      */
     @Override
-    public void setDriverProperty() {
+    public Capabilities setDriverProperty() {
         System.setProperty("webdriver.gecko.driver", "src/main/java/jp/co/webdrivers/geckodriver0.26.0.exe");
+        FirefoxOptions options = new FirefoxOptions();
+        return (Capabilities)options;
     }
 
 }

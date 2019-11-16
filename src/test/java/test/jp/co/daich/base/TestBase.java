@@ -6,8 +6,6 @@
 package test.jp.co.daich.base;
 
 import jp.co.daich.driver.LonelyMyDriver;
-import jp.co.daich.driver.Operatable;
-import jp.co.daich.driver.builder.ChromeDriverSet;
 import jp.co.daich.util.logger.MyLogger;
 import org.junit.After;
 import org.junit.AfterClass;

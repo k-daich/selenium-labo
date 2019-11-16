@@ -1,6 +1,7 @@
 package jp.co.daich.driver.builder.browser;
 
 import jp.co.daich.driver.MyDriver;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -10,9 +11,10 @@ import org.openqa.selenium.WebDriver;
 public interface BrowserSet {
 
     /**
+     * @param options
      * @return webDriver
      */
-    WebDriver createWebDriver();
+    WebDriver createWebDriver(Capabilities options);
 
     /**
      * set Action per Browser
@@ -28,7 +30,8 @@ public interface BrowserSet {
 
     /**
      * set Property per Browser
+     * @return 
      */
-    void setDriverProperty();
+    Capabilities setDriverProperty();
 
 }

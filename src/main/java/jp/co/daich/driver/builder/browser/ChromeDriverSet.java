@@ -1,10 +1,11 @@
-package jp.co.daich.driver.builder;
+package jp.co.daich.driver.builder.browser;
 
 import java.util.Collections;
 import jp.co.daich.constants.properNoun.Browser;
 import jp.co.daich.driver.MyDriver;
 import jp.co.daich.driver.browser.ChromeAction;
-import jp.co.daich.driver.builder.browser.BrowserSet;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -22,11 +23,12 @@ public class ChromeDriverSet implements BrowserSet {
     }
 
     /**
+     * @param options
      * @return webDriver
      */
     @Override
-    public WebDriver createWebDriver() {
-        return new ChromeDriver();
+    public WebDriver createWebDriver(Capabilities options) {
+        return new ChromeDriver(options);
     }
 
     /**
@@ -49,12 +51,25 @@ public class ChromeDriverSet implements BrowserSet {
      * set Property per Browser
      */
     @Override
-    public void setDriverProperty() {
+    public Capabilities setDriverProperty() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-infobars");
         options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
         options.setExperimentalOption("useAutomationExtension", false);
+        setProxy(options);
         System.setProperty("webdriver.chrome.driver", "src/main/java/jp/co/webdrivers/chromedriver.78.exe");
+
+        return (Capabilities) options;
     }
 
+    /**
+     * 
+     * @param options 
+     */
+    private void setProxy(ChromeOptions options) {
+        Proxy proxy = new Proxy();
+        proxy.setHttpProxy("testProxy:1234");
+        proxy.setSslProxy("sslProxy:9876");
+        options.setProxy(proxy);
+    }
 }

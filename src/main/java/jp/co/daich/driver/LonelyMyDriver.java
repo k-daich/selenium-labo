@@ -5,8 +5,8 @@
  */
 package jp.co.daich.driver;
 
-import jp.co.daich.driver.builder.ChromeDriverSet;
 import jp.co.daich.driver.builder.DriverBuilder;
+import jp.co.daich.driver.builder.browser.ChromeDriverSet;
 
 /**
  *
