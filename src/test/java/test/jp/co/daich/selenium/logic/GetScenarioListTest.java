@@ -3,7 +3,6 @@ package test.jp.co.daich.selenium.logic;
 import java.util.List;
 import java.util.Map;
 import jp.co.daich.command.GetSenarioList;
-import jp.co.daich.constants.ProjectCommon;
 import jp.co.daich.constants.properNoun.WINDOWS;
 import jp.co.daich.util.file.FileWriterCustom;
 import jp.co.daich.util.file.FolderFactory;
@@ -15,19 +14,19 @@ import test.jp.co.daich.base.TestBase;
  *
  * @author USER
  */
-public class GetSenarioListTest extends TestBase {
+public class GetScenarioListTest extends TestBase {
 
-    public GetSenarioListTest() {
+    public GetScenarioListTest() {
     }
 
     @Test
     @Override
     public void doTest() {
-        final String puttingRootPath = ProjectCommon.EVI_DIR + "getSenarioList" + ProjectCommon.DATE_TEXT;
+        final String puttingTxtPath = "C:\\work\\g_gits\\selenium-labo\\sh\\start\\temp\\scenarioList.txt";
         StringBuilder sBuilder = new StringBuilder();
         int listIndex = 1;
         // エビデンスフォルダを作成する
-        FolderFactory.mkdir(puttingRootPath);
+//        FolderFactory.mkdir(puttingRootPath);
 
         Map<String, List<String>> excelBooks = GetSenarioList.execute("C:\\netbeans\\projects\\fg-bookie\\designDoc\\01_DB設計\\entity");
         // ブック単位に繰り返し
@@ -37,12 +36,13 @@ public class GetSenarioListTest extends TestBase {
             // シート単位に繰り返し
             for (String sheetName : excelBooks.get(bookName)) {
                 MyLogger.printInfo("FileWrite for sheetName -> " + bookName);
-                sBuilder.append("\t").append(listIndex++).append("\t").append(sheetName).append("\n");
+                sBuilder.append("    ").append(listIndex++).append("   ").append(sheetName).append("\n");
             }
+            sBuilder.append("\n");
         }
 
         // シナリオリストをファイルに書き出す
-        FileWriterCustom.write(puttingRootPath + WINDOWS.FILE_SEPARATOR + "seanrioList.txt", sBuilder.toString());
+        FileWriterCustom.write(puttingTxtPath, sBuilder.toString());
     }
 
 }

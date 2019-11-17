@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package test.jp.co.daich.base;
 
 import jp.co.daich.driver.LonelyMyDriver;
@@ -45,7 +40,6 @@ public abstract class TestBase {
 //        } catch (InterruptedException e) {
 //            // dont happen
 //        }
-        LonelyMyDriver.operate().get("http://os3-368-17171.vs.sakura.ne.jp:10010/"); // TODO : delete
         LonelyMyDriver.operate().get("https://www.seleniumqref.com/api/java/element_infoget/Java_getLocation.html");
     }
 
