@@ -68,8 +68,8 @@ public class ChromeDriverSet implements BrowserSet {
      */
     private void setProxy(ChromeOptions options) {
         Proxy proxy = new Proxy();
-        proxy.setHttpProxy("testProxy:1234");
-        proxy.setSslProxy("sslProxy:9876");
+        proxy.setHttpProxy("localhost:3128");
+        proxy.setSslProxy("localhost:3128");
         options.setProxy(proxy);
     }
 }

@@ -18,7 +18,7 @@ import org.junit.Test;
  * @author USER
  */
 public abstract class TestBase {
-    
+
     /**
      * Constructor
      */
@@ -37,8 +37,15 @@ public abstract class TestBase {
     @Before
     public void setUp() {
         MyLogger.printInfo("☆☆☆" + this.getClass().getSimpleName() + "☆☆☆");
-//        LonelyMyDriver.operate().get("https://caniuse.com/");
-
+//        try {
+//            LonelyMyDriver.operate().get("http://os3-368-17171.vs.sakura.ne.jp:10010/"); // TODO : delete
+//            MyLogger.printInfo("[sleep] get Basic Authorize Site");
+//            LonelyMyDriver.operate().get("http://os3-368-17171.vs.sakura.ne.jp:10010/"); // TODO : delete
+//            Thread.sleep(5000); // TODO : delete
+//        } catch (InterruptedException e) {
+//            // dont happen
+//        }
+        LonelyMyDriver.operate().get("http://os3-368-17171.vs.sakura.ne.jp:10010/"); // TODO : delete
         LonelyMyDriver.operate().get("https://www.seleniumqref.com/api/java/element_infoget/Java_getLocation.html");
     }
 

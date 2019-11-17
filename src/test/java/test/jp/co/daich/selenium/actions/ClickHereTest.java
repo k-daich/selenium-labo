@@ -1,6 +1,7 @@
 package test.jp.co.daich.selenium.actions;
 
 import jp.co.daich.command.ClickHere;
+import jp.co.daich.driver.LonelyMyDriver;
 import jp.co.daich.util.logger.MyLogger;
 import org.junit.Test;
 import org.openqa.selenium.By;
