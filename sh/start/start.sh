@@ -1,10 +1,12 @@
 #!/bin/bash
 
 ### function Area
+# echo(背景マゼンタ)
 function bg_magenta_echo() {
     echo -e "\e[45m$*\e[m";
 }
 
+# echo(文字イエロー)
 function yellow_echo() {
     echo -e "\e[1;33m$*\e[m";
 }
@@ -43,22 +45,17 @@ read -p " > " INP_SHEET_NO
 # 繰り返し処理用にカンマ区切り形式をスペース形式に変換
 FORMED_SHEET_NO=`echo $INP_SHEET_NO | sed "s/,/ /g"`
 
-SHEET_ARRAY=()
-
 # Book一覧を格納する連想配列
 declare -A bookList_
 
-grep -n "\[Book\]" ./temp/scenarioList.txt | while read line
+while read line
 do
-    #
     BOOK_NUM=`echo $line | sed "s/:.*//"`
-    echo $BOOK_NUM
     BOOK_NAME=`echo $line | sed "s/^.*\[Book\] *//"`
-    echo $BOOK_NAME
     bookList_["$BOOK_NUM"]="$BOOK_NAME"
-    declare -p bookList_
-    echo "[value]bookList_="${!bookList_[@]}
-done
+    #declare -p bookList_
+done < <(grep -n "\[Book\]" ./temp/scenarioList.txt)
+
 
 # 指定されたシートごとに繰り返し
 for i in $FORMED_SHEET_NO ; do
@@ -67,9 +64,8 @@ for i in $FORMED_SHEET_NO ; do
     EXE_BOOK_NAME=""
     for ((i=$EXE_SHEET_LINE_NUM; 0<i; i--));
     do
-        echo "[value]i=$i"
         EXE_BOOK_NAME=${bookList_[$i]}
-        echo "[value] bookList_=$EXE_BOOK_NAME"
+        #echo "[value] bookList_ : $EXE_BOOK_NAME"
         if [ -n "$EXE_BOOK_NAME" ];
         then
             echo "[value] EXE_BOOK_NAME=$EXE_BOOK_NAME"
